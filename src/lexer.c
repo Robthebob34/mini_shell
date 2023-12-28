@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 15:03:39 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/28 13:15:25 by rheck            ###   ########.fr       */
+/*   Updated: 2023/12/28 13:22:07 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	set_type_value(t_token *previous, char *token)
 		new_token->type = "LESSLESS";
 	else
 		new_token->type = "WORD";
+	new_token->value = token;
 	previous->next = new_token;
 }
 
