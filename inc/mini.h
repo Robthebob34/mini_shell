@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/28 12:51:21 by rheck            ###   ########.fr       */
+/*   Updated: 2023/12/28 15:33:23 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*find_env_variable(char **envp, char *to_find);
 
 //lexer
 t_token	*ft_new_token(void *content);
+t_token	*lex(t_main data);
 
 // utils
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
