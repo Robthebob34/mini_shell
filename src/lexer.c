@@ -6,12 +6,13 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 15:03:39 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/28 12:48:56 by rheck            ###   ########.fr       */
+/*   Updated: 2023/12/28 13:15:25 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini.h"
 
+//still to finsih
 void	set_type_value(t_token *previous, char *token)
 {
 	t_token *new_token;
