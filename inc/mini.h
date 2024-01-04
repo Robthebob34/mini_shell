@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/04 13:40:43 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/04 15:20:32 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,19 @@ typedef struct {
     const char *value;
 } Token;
 
-void init_lexer(Lexer *lexer, const char *input);
-Token get_next_token(Lexer *lexer);
+// lexer
+void	init_lexer(Lexer *lexer, const char *input);
+int		is_operator_char(char c);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+int		ft_isdigit(int c);
+int		is_space(char c);
+int		ft_isalpha(int c);
+Token	get_next_token(Lexer *lexer);
+const char	*read_operator(Lexer *lexer);
+const char	*create_operator_str(Lexer *lexer, int start_position);
+const char	*read_regular_operator(Lexer *lexer, int start_position);
+const char	*read_double_quote(Lexer *lexer, int start_position);
+const char	*read_single_quote(Lexer *lexer, int start_position);
 
 
 char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try);

@@ -6,13 +6,11 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:29:29 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/04 14:29:32 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/04 15:22:11 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini.h"
-
-
 
 const char *read_single_quote(Lexer *lexer, int start_position)
 {
@@ -59,7 +57,6 @@ const char *create_operator_str(Lexer *lexer, int start_position)
         ft_strncpy(operator_str, lexer->input + start_position, operator_length);
         operator_str[operator_length] = '\0';
     }
-
     return (operator_str);
 }
 
@@ -75,9 +72,7 @@ const char *read_operator(Lexer *lexer)
 
     if (!is_operator_char(current_char) && current_char != '\'' && current_char != '"')
         return (NULL);
-
     start_position = lexer->position;
-
     // Si le caractère est un guillemet simple
     if (current_char == '\'')
         return read_single_quote(lexer, start_position);

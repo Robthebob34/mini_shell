@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 15:03:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/04 13:47:26 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/04 15:49:43 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,38 @@ Token	create_token(TokenType type, const char *value)
 Token get_next_token(Lexer *lexer)
 {
     char current_char;
-    const char *identifier;
-    const char *number;
-    const char *operator;
+    const char *value;
 
     skip_whitespace(lexer);
     // Vérifiez la fin du fichier
     if (lexer->input[lexer->position] == '\0')
         return create_token(EOF_TOKEN, NULL);
-
+	
     // Logique pour identifier différents types de tokens
     current_char = lexer->input[lexer->position];
+	if (current_char == '\'' || current_char == '"')
+	{
+		//identifier les single / double quotes
+    	value = read_quoted_string(lexer, current_char);
+    	return create_token(STRING, value);
+    }
     if (ft_isalpha(current_char))
 	{
         // Identifier un identificateur (mot)
-        identifier = read_identifier(lexer);
-        return create_token(IDENTIFIER, identifier);
+        value = read_identifier(lexer);
+        return create_token(IDENTIFIER, value);
     }
 	else if (ft_isdigit(current_char))
 	{
         // Identifier un nombre
-        number = read_number(lexer);
-        return create_token(NUMBER, number);
+        value = read_number(lexer);
+        return create_token(NUMBER, value);
     }
 	else
 	{
         // Identifier un opérateur
-        operator = read_operator(lexer);
-        return create_token(OPERATOR, operator);
+        value = read_operator(lexer);
+        return create_token(OPERATOR, value);
     }
 }
 
