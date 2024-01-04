@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/28 15:33:23 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/04 13:40:43 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,35 @@ typedef struct s_cmd {
 	int		(*builtin)(t_main *, struct s_cmd *); // j'ai pas encore tout compris
 } t_cmd;
 
-typedef struct s_token {
-	char *type;
-	char *value;
-	struct s_token *next;
-} t_token;
+typedef enum {
+    IDENTIFIER,
+    NUMBER,
+    OPERATOR,
+    KEYWORD,
+    STRING,
+	EOF_TOKEN,
+    VARIABLE,
+    ERROR
+} TokenType;
+
+
+typedef struct {
+    const char *input;
+    size_t position;
+} Lexer;
+
+typedef struct {
+    TokenType type;
+    const char *value;
+} Token;
+
+void init_lexer(Lexer *lexer, const char *input);
+Token get_next_token(Lexer *lexer);
+
 
 char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try);
 char	*find_env_variable(char **envp, char *to_find);
 
-//lexer
-t_token	*ft_new_token(void *content);
-t_token	*lex(t_main data);
 
 // utils
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -58,7 +75,6 @@ size_t	ft_strlen(const char *str);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-t_token	*ft_lstlast(t_token *lst);
 
 // a changer
  

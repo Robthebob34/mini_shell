@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:46 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/28 12:25:01 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/04 14:30:38 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,26 +84,4 @@ void	ft_putendl_fd(char *s, int fd)
 {
 	ft_putstr_fd(s, fd);
 	ft_putchar_fd('\n', fd);
-}
-
-t_token	*ft_new_token(void *content)
-{
-	t_token	*new_element;
-
-	new_element = (t_token *)malloc(sizeof(t_token));
-	if (new_element == NULL)
-		return (NULL);
-	new_element->value = content;
-	new_element->next = NULL;
-	new_element->type = NULL;
-	return (new_element);
-}
-
-void	ft_lstadd_front(t_token **lst, t_token *new)
-{
-	if (lst != NULL && new != NULL)
-	{
-		new->next = *lst;
-		*lst = new;
-	}
 }
