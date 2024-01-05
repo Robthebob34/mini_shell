@@ -29,8 +29,9 @@ char	*find_env_variable(char **envp, char *to_find)
 	}
 	while (ft_strncmp(to_find, *envp, ft_strlen(to_find)))
 		envp++;
-	return (*envp + ft_strlen(to_find) + 1);
+	return (*envp + ft_strlen(to_find) + 1); // peut etre nescessaire de renvoye une chaine malloc 
 }
+
 // permet de recupere les chemins absolu vers les fichiers des commandes (exemple : /bin/pwd)
 char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 {
@@ -40,7 +41,7 @@ char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 	// mettre une premiere tentative d'acces pour verifier que l'entre utilisateur ne soit pas deja un pathing absolu
 	if (ft_strncmp(data_base->my_prompt_line, "history", 7) == 0)
 	{
-		print_history(data_base);
+		print_history();
 		return(0);
 	}
 	if((just_a_try->builtin = look_for_builtin(data_base->my_prompt_line)))
