@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/28 15:33:23 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/08 12:46:47 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,50 @@ typedef struct s_cmd {
 	int		(*builtin)(t_main *, struct s_cmd *); // j'ai pas encore tout compris
 } t_cmd;
 
-typedef struct s_token {
-	char *type;
-	char *value;
-	struct s_token *next;
-} t_token;
+typedef enum {
+    IDENTIFIER,
+    NUMBER,
+    OPERATOR,
+    KEYWORD,
+    STRING,
+	EOF_TOKEN,
+    VARIABLE,
+    ERROR
+} TokenType;
+
+
+typedef struct {
+    const char *input;
+    size_t position;
+} Lexer;
+
+typedef struct {
+    TokenType type;
+    const char *value;
+} Token;
+
+// lexer
+void	init_lexer(Lexer *lexer, const char *input);
+int		is_operator_char(char c);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+int		ft_isdigit(int c);
+int		is_space(char c);
+int		ft_isalpha(int c);
+Token	get_next_token(Lexer *lexer);
+const char	*read_operator(Lexer *lexer);
+const char	*create_operator_str(Lexer *lexer, int start_position);
+const char	*read_regular_operator(Lexer *lexer, int start_position);
+const char	*read_double_quote(Lexer *lexer, int start_position);
+const char	*read_single_quote(Lexer *lexer, int start_position);
+const char	*read_quoted_string(Lexer *lexer, char quote_type);
+int			find_closing_quote(Lexer *lexer, char quote_type);
+const char	*read_identifier(Lexer *lexer);
+int			is_valid_identifier_char(char c);
+
 
 char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try);
 char	*find_env_variable(char **envp, char *to_find);
 
-//lexer
-t_token	*ft_new_token(void *content);
-t_token	*lex(t_main data);
 
 // utils
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -58,7 +90,6 @@ size_t	ft_strlen(const char *str);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-t_token	*ft_lstlast(t_token *lst);
 
 // a changer
  

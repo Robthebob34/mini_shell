@@ -6,46 +6,67 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 15:03:39 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/28 15:35:04 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/05 14:47:53 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini.h"
 
-void	set_type_value(t_token *previous, char *token)
+void	init_lexer(Lexer *lexer, const char *input)
 {
-	t_token *new_token;
-
-	new_token = ft_new_token(token);
-	if (ft_strncmp(token, "|", 1))
-		new_token->type = "PIPE";
-	else if (ft_strncmp(token, ">", 1))
-		new_token->type = "GREAT";
-	else if (ft_strncmp(token, ">>", 2))
-		new_token->type = "GREATGREAT";
-	else if (ft_strncmp(token, "<", 1))
-		new_token->type = "LESS";
-	else if (ft_strncmp(token, "<<", 2))
-		new_token->type = "LESSLESS";
-	else
-		new_token->type = "WORD";
-	new_token->value = token;
-	previous->next = new_token;
+	lexer->input = input;
+	lexer->position = 0;
 }
 
-t_token	*lex(t_main data)
+void skip_whitespace(Lexer *lexer)
 {
-	char **tokens;
-	int	i;
-	t_token *current;
+    while (is_space(lexer->input[lexer->position]))
+        lexer->position++;
+}
+
+Token	create_token(TokenType type, const char *value)
+{
+    Token token;
+    token.type = type;
+    token.value = value;
+    return (token);
+}
+
+Token get_next_token(Lexer *lexer)
+{
+    char current_char;
+    const char *value;
+
+    skip_whitespace(lexer);
+    // Vérifiez la fin du fichier
+    if (lexer->input[lexer->position] == '\0')
+        return create_token(EOF_TOKEN, NULL);
 	
-	tokens = ft_split(data.my_prompt_line, ' ');
-	i = 0;
-	current = ft_new_token(tokens[0]);
-	while (tokens[i])
+    // Logique pour identifier différents types de tokens
+    current_char = lexer->input[lexer->position];
+	if (current_char == '\'' || current_char == '"')
 	{
-		set_type_value(current, tokens[i]);
-		i++;
-	}
-	return (current);
+		//Identifier les single / double quotes
+    	value = read_quoted_string(lexer, current_char);
+    	return create_token(STRING, value);
+    }
+    if (ft_isalpha(current_char))
+	{
+        // Identifier un identificateur (mot)
+        value = read_identifier(lexer);
+        return create_token(IDENTIFIER, value);
+    }
+	else if (ft_isdigit(current_char))
+	{
+        // Identifier un nombre
+        value = read_number(lexer);
+        return create_token(NUMBER, value);
+    }
+	else
+	{
+        // Identifier un opérateur
+        value = read_operator(lexer);
+        return create_token(OPERATOR, value);
+    }
 }
+
