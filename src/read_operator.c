@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:29:29 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/04 15:22:11 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/05 12:57:59 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ const char *read_double_quote(Lexer *lexer, int start_position)
 {
     // Lire jusqu'à ce qu'un guillemet double fermant soit trouvé
     while (lexer->input[lexer->position] != '\0' && lexer->input[lexer->position] != '"')
-        // TODO: Ajouter votre logique spéciale pour le caractère '$' dans les guillemets doubles
         lexer->position++;
 
     // Si un guillemet double fermant est trouvé, avancer la position du lexer
@@ -62,7 +61,6 @@ const char *create_operator_str(Lexer *lexer, int start_position)
 
 const char *read_operator(Lexer *lexer)
 {
-    // Déclarations au début de la fonction
     char current_char;
     int start_position;
     int operator_length;

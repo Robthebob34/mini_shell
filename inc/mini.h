@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/04 15:20:32 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/08 12:46:47 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ const char	*create_operator_str(Lexer *lexer, int start_position);
 const char	*read_regular_operator(Lexer *lexer, int start_position);
 const char	*read_double_quote(Lexer *lexer, int start_position);
 const char	*read_single_quote(Lexer *lexer, int start_position);
+const char	*read_quoted_string(Lexer *lexer, char quote_type);
+int			find_closing_quote(Lexer *lexer, char quote_type);
+const char	*read_identifier(Lexer *lexer);
+int			is_valid_identifier_char(char c);
 
 
 char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try);

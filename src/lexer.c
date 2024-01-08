@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 15:03:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/04 16:50:53 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/05 14:47:53 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ Token get_next_token(Lexer *lexer)
     current_char = lexer->input[lexer->position];
 	if (current_char == '\'' || current_char == '"')
 	{
-		//identifier les single / double quotes
+		//Identifier les single / double quotes
     	value = read_quoted_string(lexer, current_char);
     	return create_token(STRING, value);
     }
