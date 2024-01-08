@@ -39,11 +39,6 @@ char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 	char	*command;
 	int i = 0;
 	// mettre une premiere tentative d'acces pour verifier que l'entre utilisateur ne soit pas deja un pathing absolu
-	if (ft_strncmp(data_base->my_prompt_line, "history", 7) == 0)
-	{
-		print_history();
-		return(0);
-	}
 	if((just_a_try->builtin = look_for_builtin(data_base->my_prompt_line)))
 	{
 		just_a_try->builtin(data_base, just_a_try);

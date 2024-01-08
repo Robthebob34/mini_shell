@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <dirent.h>
 # include <fcntl.h>
+# include <get_next_line.h>
 # include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
 # include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/history.h>
 
@@ -31,6 +32,7 @@ typedef struct s_main
 	char	*old_pwd; // a recuperer dans la variable env
 	pid_t	pid1; // variable de processus
 	int		*output;
+	int		history_file; // permet de savoir si le shell a deja ete lancer
 } t_main;
 
 typedef struct s_global {
@@ -61,6 +63,7 @@ char	**ft_arraydup(char **tab);
 char	*ft_strdup(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 // a changer
  
@@ -68,9 +71,13 @@ int	print_history(void);
 
 // builtins
 int	my_exit(t_main *tools, t_cmd *simple_cmd);
+int	my_history(t_main *data_base, t_cmd *simple_cmd);
 int my_cd(t_main *tools, t_cmd *simple_cmd);
 int	my_env(t_main *data_base, t_cmd *simple_cmd);
 int (*look_for_builtin(char *name))(t_main *data_base, t_cmd *single_cmd);
+
+// builtins utils
+void add_myhistory(char *str);
 
 //signal 
 void    init_signal(void);

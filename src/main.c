@@ -76,6 +76,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		data_base.my_prompt_line = readline("\033[1;32mMy prompt \033[0m");
 		add_history(data_base.my_prompt_line);
+		add_myhistory(data_base.my_prompt_line);
 		data_base.env_path = find_env_variable(env, "PATH");
 		// LEXER // 
 

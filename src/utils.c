@@ -165,3 +165,78 @@ void	ft_bzero(void *s, size_t n)
 		p++;
 	}
 }
+void	*ft_memcpy(void *dest, const void *src, size_t num)
+{
+	unsigned char	*d;
+	unsigned char	*s;
+	size_t			i;
+
+	s = (unsigned char *)src;
+	d = (unsigned char *)dest;
+	i = 0;
+	if (!s && !d)
+		return (0);
+	while (num > 0)
+	{
+		d[i] = s[i];
+		i++;
+		num--;
+	}
+	return (dest);
+}
+char	*ft_strchr(const char *str, int c)
+{
+	size_t	i;
+	char	*ptr;
+	char	cc;
+
+	i = 0;
+	cc = c;
+	ptr = (char *)str;
+	if(!str)
+		return (0);
+	while (ptr[i] != '\0')
+	{
+		if (ptr[i] == cc)
+		{
+			return (&ptr[i]);
+		}
+		i++;
+	}
+	if (cc == 0)
+		return (&ptr[i]);
+	return (0);
+}
+char	*ft_substr(const char *s, unsigned int start, size_t len)
+{
+	char	*new;
+
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) < start)
+		return (ft_calloc(1, 1));
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	new = malloc(sizeof(char) * (len + 1));
+	if (!new)
+		return (0);
+	ft_strlcpy(new, s + start, len + 1);
+	return (new);
+}
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+
+	i = 0;
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	while (i < dstsize - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	while (src[i])
+		i++;
+	return (i);
+}
