@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:44:12 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/08 12:47:33 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/08 12:48:39 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_valid_identifier_char(char c)
 {
-    return (isalnum(c) || c == '_');
+    return (ft_isalnum(c) || c == '_');
 }
 
 const char *read_identifier(Lexer *lexer)
@@ -24,7 +24,7 @@ const char *read_identifier(Lexer *lexer)
 	char *identifier;
 	
 	start_position = lexer->position;
-    if (!isalpha(lexer->input[start_position]) && lexer->input[start_position] != '_')
+    if (!ft_isalpha(lexer->input[start_position]) && lexer->input[start_position] != '_')
         return (NULL);
     while (is_valid_identifier_char(lexer->input[lexer->position]))
         lexer->position++;

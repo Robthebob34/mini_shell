@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:41:25 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/08 12:47:21 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/08 14:10:36 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-int is_operator_char(char c)
-{
-    return (c == '|' || c == '>' || c == '<' || c == '$');
-}
 
 char *ft_strncpy(char *dest, const char *src, size_t n)
 {
