@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:39 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/28 12:50:27 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/08 15:00:40 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,19 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	my_header();
+	Token token;
+	Lexer lexer;
+	token.type = KEYWORD;
 	while (1)
 	{
 		data_base.my_prompt_line = readline("\033[1;32mMy prompt \033[0m");
+		init_lexer(&lexer, data_base.my_prompt_line);
+		while (token.type != EOF_TOKEN)
+		{
+			token = get_next_token(&lexer);
+			printf("token : %s, type : %u\n", token.value, token.type);
+		}
+		token.type = KEYWORD;
 		add_history(data_base.my_prompt_line);
 		data_base.env_path = find_env_variable(env, "PATH");
 		// LEXER // 
