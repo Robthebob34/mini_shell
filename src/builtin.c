@@ -8,7 +8,8 @@ int (*look_for_builtin(char *name))(t_main *data_base, t_cmd *single_cmd)
         {"exit", my_exit},
         {"cd", my_cd},
         {"env", my_env},
-        {"history", my_history}
+        {"history", my_history},
+        {"echo", my_echo}
     };
     int i;
     i = 0;

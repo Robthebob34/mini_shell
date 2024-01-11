@@ -5,6 +5,7 @@ int	my_history(t_main *data_base, t_cmd *simple_cmd)
     int     fd;
     char    *line;
     (void)simple_cmd;
+    (void)data_base;
     //AJOUTER LE FLAG -C POUR CLEAR HISTORY_FILE
     fd = open("history_file", O_CREAT | O_RDONLY, 0644);
     line = get_next_line(fd);

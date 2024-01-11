@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <dirent.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include <get_next_line.h>
 # include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
 # include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/history.h>
@@ -42,8 +43,29 @@ typedef struct s_global {
 typedef struct s_cmd {
 	char	*cmd_name; // nom de la commande 
 	char	**cmd_args; // tableau commande + argument (doit finir par NULL)
-	int		(*builtin)(t_main *, struct s_cmd *); // j'ai pas encore tout compris
+	int		(*builtin)(t_main *, struct s_cmd *);
 } t_cmd;
+
+typedef enum {
+    IDENTIFIER,
+    NUMBER,
+    OPERATOR,
+    KEYWORD,
+    STRING,
+	EOF_TOKEN,
+    VARIABLE,
+    ERROR
+} TokenType;
+
+typedef struct {
+    const char *input;
+    size_t position;
+} Lexer;
+
+typedef struct {
+    TokenType type;
+    const char *value;
+} Token;
 
 t_global my_global;
 
@@ -74,6 +96,7 @@ int	my_exit(t_main *tools, t_cmd *simple_cmd);
 int	my_history(t_main *data_base, t_cmd *simple_cmd);
 int my_cd(t_main *tools, t_cmd *simple_cmd);
 int	my_env(t_main *data_base, t_cmd *simple_cmd);
+int	my_echo(t_main *tools, t_cmd *simple_cmd);
 int (*look_for_builtin(char *name))(t_main *data_base, t_cmd *single_cmd);
 
 // builtins utils
@@ -81,5 +104,27 @@ void add_myhistory(char *str);
 
 //signal 
 void    init_signal(void);
+
+// robin lexer 
+void	init_lexer(Lexer *lexer, const char *input);
+int		is_operator_char(char c);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+int		ft_isdigit(int c);
+int		is_space(char c);
+int		ft_isalpha(int c);
+Token	get_next_token(Lexer *lexer);
+const char	*read_operator(Lexer *lexer);
+const char	*create_operator_str(Lexer *lexer, int start_position);
+const char	*read_regular_operator(Lexer *lexer, int start_position);
+const char	*read_double_quote(Lexer *lexer, int start_position);
+const char	*read_single_quote(Lexer *lexer, int start_position);
+const char	*read_quoted_string(Lexer *lexer, char quote_type);
+int			find_closing_quote(Lexer *lexer, char quote_type);
+const char	*read_identifier(Lexer *lexer);
+int			is_valid_identifier_char(char c);
+const char	*read_number(Lexer *lexer);
+int			ft_isalnum(char c);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
+void *my_realloc(void *ptr, size_t old_size, size_t new_size);
 
 #endif

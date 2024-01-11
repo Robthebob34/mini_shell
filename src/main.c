@@ -71,16 +71,27 @@ int	main(int argc, char **argv, char **env)
 	my_header();
 	init_signal();
 	// charger les argument dans la structures main;
+	Token token;
+	Lexer lexer;
+	token.type = KEYWORD;
 	data_base.env_tab = ft_arraydup(env);
 	while (1)
 	{
 		data_base.my_prompt_line = readline("\033[1;32mMy prompt \033[0m");
+		// LEXER //
+
+		init_lexer(&lexer, data_base.my_prompt_line);
+		while (token.type != EOF_TOKEN)
+		{
+			token = get_next_token(&lexer); // lu mais pas stocker ? 
+			printf("token : %s, type : %u\n", token.value, token.type);
+		}
+		token.type = KEYWORD;
+		// PARSING //
+
 		add_history(data_base.my_prompt_line);
 		add_myhistory(data_base.my_prompt_line);
 		data_base.env_path = find_env_variable(env, "PATH");
-		// LEXER // 
-
-		// PARSING // 
 
 		// EXECUTION //
 
