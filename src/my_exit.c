@@ -1,8 +1,9 @@
 #include "../inc/mini.h"
 int choose_exit_code(t_main *tools, t_cmd *simple_cmd)
 {
-	(void) simple_cmd;
-	exit(tools->last_err_code);
+	(void)simple_cmd;
+	(void)tools;
+	exit(my_global.last_err_code);
 	return(0);
 }
 int	my_exit(t_main *tools, t_cmd *simple_cmd)
