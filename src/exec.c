@@ -14,6 +14,7 @@
 #include "../inc/mini.h"
 // permet de trouver une ligne precise dans 
 // les variables d' environnement 
+// identique a la fonction getenv()
 char	*find_env_variable(char **envp, char *to_find)
 {
 	int		cond;
@@ -29,8 +30,9 @@ char	*find_env_variable(char **envp, char *to_find)
 	}
 	while (ft_strncmp(to_find, *envp, ft_strlen(to_find)))
 		envp++;
-	return (*envp + ft_strlen(to_find) + 1);
+	return (*envp + ft_strlen(to_find) + 1); // peut etre nescessaire de renvoye une chaine malloc 
 }
+
 // permet de recupere les chemins absolu vers les fichiers des commandes (exemple : /bin/pwd)
 char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 {
@@ -38,11 +40,6 @@ char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 	char	*command;
 	int i = 0;
 	// mettre une premiere tentative d'acces pour verifier que l'entre utilisateur ne soit pas deja un pathing absolu
-	if (ft_strncmp(data_base->my_prompt_line, "history", 7) == 0)
-	{
-		print_history(data_base);
-		return(0);
-	}
 	if((just_a_try->builtin = look_for_builtin(data_base->my_prompt_line)))
 	{
 		just_a_try->builtin(data_base, just_a_try);

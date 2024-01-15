@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 15:03:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/08 14:01:12 by rheck            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/mini.h"
 
 void	init_lexer(Lexer *lexer, const char *input)
@@ -72,4 +60,3 @@ Token get_next_token(Lexer *lexer)
         return create_token(OPERATOR, value);
     }
 }
-

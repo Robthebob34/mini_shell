@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/08 15:00:40 by rheck            ###   ########.fr       */
+/*   Updated: 2023/12/21 15:40:22 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ int	execute(char **env, char *env_path, t_main *data_base)
 	errcode = 0;
 	cmd_path = ft_split(env_path, ':');
 	cmd = get_cmd(cmd_path, data_base, &just_a_try);
+	if(!cmd)
+		return(0);
 	char *tab[] = {cmd, NULL}; // pour rajouter des arguments tu peux completer ce tableau avec les arguments sous formes de chaines de caracteres attention a bien rajouter NULL en fin de tableau 
-	printf("%s\n", cmd);
+	//printf("%s\n", cmd);
 	data_base->pid1 = fork();
 	if (data_base->pid1 == 0)
 		errcode = execve(cmd, tab, env);
@@ -44,13 +46,13 @@ int	execute(char **env, char *env_path, t_main *data_base)
 	return (errcode);
 }
 //fait marcher la commande "history" mais je ne pense pas que l'on puisse utiliser la fonction history_get
-int	print_history(t_main *data_base)
+int	print_history(void)
 {
 	int	i;
 
 	i = 1;
-	(void) data_base;
 	HIST_ENTRY *historyList = NULL;
+	historyList = history_get(i);
 	while(historyList)
 	{
 		historyList = history_get(i);
@@ -68,24 +70,29 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	my_header();
+	init_signal();
+	// charger les argument dans la structures main;
 	Token token;
 	Lexer lexer;
 	token.type = KEYWORD;
+	data_base.env_tab = ft_arraydup(env);
 	while (1)
 	{
 		data_base.my_prompt_line = readline("\033[1;32mMy prompt \033[0m");
+		// LEXER //
+
 		init_lexer(&lexer, data_base.my_prompt_line);
 		while (token.type != EOF_TOKEN)
 		{
-			token = get_next_token(&lexer);
+			token = get_next_token(&lexer); // lu mais pas stocker ? 
 			printf("token : %s, type : %u\n", token.value, token.type);
 		}
 		token.type = KEYWORD;
-		add_history(data_base.my_prompt_line);
-		data_base.env_path = find_env_variable(env, "PATH");
-		// LEXER // 
+		// PARSING //
 
-		// PARSING // 
+		add_history(data_base.my_prompt_line);
+		add_myhistory(data_base.my_prompt_line);
+		data_base.env_path = find_env_variable(env, "PATH");
 
 		// EXECUTION //
 

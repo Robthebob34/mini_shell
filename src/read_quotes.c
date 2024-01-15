@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   read_quotes.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 15:44:10 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/09 14:44:02 by rheck            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/mini.h"
 
 int find_closing_quote(Lexer *lexer, char quote_type)
@@ -62,7 +50,6 @@ const char *read_quoted_string(Lexer *lexer, char quote_type)
             }
         }
     }
-    return (quoted_string);
+
+    return quoted_string;
 }
-
-
