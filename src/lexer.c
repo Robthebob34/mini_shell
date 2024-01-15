@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 15:03:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/05 14:47:53 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/08 14:01:12 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	init_lexer(Lexer *lexer, const char *input)
 {
-	lexer->input = input;
+    printf("5\n");
 	lexer->position = 0;
+	lexer->input = input;
+    printf("6\n");
 }
 
 void skip_whitespace(Lexer *lexer)
@@ -46,6 +48,7 @@ Token get_next_token(Lexer *lexer)
     current_char = lexer->input[lexer->position];
 	if (current_char == '\'' || current_char == '"')
 	{
+    // RAJOUTER LE CAS PARTICULIER OU IL N Y A PAS D ESPACE
 		//Identifier les single / double quotes
     	value = read_quoted_string(lexer, current_char);
     	return create_token(STRING, value);

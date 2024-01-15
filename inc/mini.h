@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/08 12:46:47 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/08 17:27:39 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ const char	*read_quoted_string(Lexer *lexer, char quote_type);
 int			find_closing_quote(Lexer *lexer, char quote_type);
 const char	*read_identifier(Lexer *lexer);
 int			is_valid_identifier_char(char c);
+const char	*read_number(Lexer *lexer);
+int			ft_isalnum(char c);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
+void *my_realloc(void *ptr, size_t old_size, size_t new_size);
 
 
 char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try);

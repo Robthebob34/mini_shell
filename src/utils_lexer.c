@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:41:25 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/08 12:47:21 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/08 17:28:48 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,26 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-int is_operator_char(char c)
+void *my_realloc(void *ptr, size_t old_size, size_t new_size)
 {
-    return (c == '|' || c == '>' || c == '<' || c == '$');
+    void *new_ptr;
+     
+    if (new_size == 0)
+    {
+        free(ptr);
+        return NULL;
+    }
+    new_ptr = malloc(new_size);
+    if (new_ptr != NULL)
+    {
+        size_t copy_size = old_size;
+        if (new_size < old_size)
+            copy_size = new_size;
+        if (copy_size > 0)
+            ft_memcpy(new_ptr, ptr, copy_size);
+        free(ptr);
+    }
+    return (new_ptr);
 }
 
 char *ft_strncpy(char *dest, const char *src, size_t n)
