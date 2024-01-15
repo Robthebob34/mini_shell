@@ -14,6 +14,7 @@
 #include "../inc/mini.h"
 // permet de trouver une ligne precise dans 
 // les variables d' environnement 
+// identique a la fonction getenv()
 char	*find_env_variable(char **envp, char *to_find)
 {
 	int		cond;

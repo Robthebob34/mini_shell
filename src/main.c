@@ -33,9 +33,10 @@ int	execute(char **env, char *env_path, t_main *data_base)
 	t_cmd just_a_try;
 
 	errcode = 0;
-	//just_a_try.cmd_args[1] = NULL;
 	cmd_path = ft_split(env_path, ':');
 	cmd = get_cmd(cmd_path, data_base, &just_a_try);
+	if(!cmd)
+		return(0);
 	char *tab[] = {cmd, NULL}; // pour rajouter des arguments tu peux completer ce tableau avec les arguments sous formes de chaines de caracteres attention a bien rajouter NULL en fin de tableau 
 	//printf("%s\n", cmd);
 	data_base->pid1 = fork();
