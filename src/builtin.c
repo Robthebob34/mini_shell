@@ -4,11 +4,12 @@ int	my_exit(t_main *tools, t_cmd *simple_cmd);
 
 int (*look_for_builtin(char *name))(t_main *data_base, t_cmd *single_cmd)
 {
-    static void *builtins[5][2] = {
+    static void *builtins[6][2] = {
         {"exit", my_exit},
         {"cd", my_cd},
         {"env", my_env},
         {"history", my_history},
+        {"pwd", my_pwd},
         {"echo", my_echo} // not finish 
     };
     int i;

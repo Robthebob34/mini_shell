@@ -43,12 +43,12 @@ char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 	if((just_a_try->builtin = look_for_builtin(data_base->my_prompt_line)))
 	{
 		just_a_try->builtin(data_base, just_a_try);
-		return (0);
+		return (NULL);
 	}
 	while (path[i])
 	{
 		tmp = ft_strjoin(path[i], "/");
-		command = ft_strjoin(tmp, data_base->my_prompt_line);
+		command = ft_strjoin(tmp, data_base->cmds_list->cmd_name);
 		free(tmp);
 		if (access(command, X_OK) == 0)
 			return (command);

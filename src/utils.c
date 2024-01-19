@@ -128,6 +128,8 @@ char	*ft_strdup(const char *s)
 	size_t	i;
 
 	i = 0;
+	if(!s)
+		return(NULL);
 	new = malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!new)
 		return (NULL);
