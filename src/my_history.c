@@ -27,3 +27,8 @@ void add_myhistory(char *str)
     write(fd, "\n", 1);
     close(fd);
 }
+void    super_history(char *str)
+{
+    add_history(str);
+	add_myhistory(str);
+}

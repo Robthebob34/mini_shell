@@ -118,7 +118,8 @@ int my_pwd(t_main *tools, t_cmd *simple_cmd);
 int (*look_for_builtin(char *name))(t_main *data_base, t_cmd *single_cmd);
 
 // builtins utils
-void add_myhistory(char *str);
+void    super_history(char *str);
+void	change_env_tab(char *new_pos, t_main *tools, const char *to_find);
 
 //signal 
 void    init_signal(void);

@@ -80,11 +80,12 @@ t_cmd   parse_next_cmd(t_main *data_base)
 		}
     }
 	j++;
+	printf("%d\n", j);
 	ret_tab[j] = NULL;
-	//for(int x = 0; ret_tab[x] != NULL; x++)
-	//{
-	//	printf("%s\n", ret_tab[x]);
-	//}
+	for(int x = 0; ret_tab[x] != NULL; x++)
+	{
+		printf("%s\n", ret_tab[x]);
+	}
 	ret.cmd_name = ft_strdup(ret_tab[0]);
 	ret.cmd_args = ret_tab;
 	//free ret_tab ?? 

@@ -30,11 +30,10 @@ int	execute(char **env, t_main *data_base)
 	int errcode;
 	char *cmd;
 	char **cmd_path;
-	t_cmd just_a_try;
 
 	errcode = 0;
 	cmd_path = ft_split(data_base->env_path, ':');
-	cmd = get_cmd(cmd_path, data_base, &just_a_try);
+	cmd = get_cmd(cmd_path, data_base, data_base->cmds_list);
 	if(!cmd)
 	{
 		printf("no cmd return\n");
@@ -110,7 +109,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			i++;
 			data_base.token_array[i] = get_next_token(&lexer);
-			//printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
+			printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
 		}
 		// END LEXER //
 
@@ -118,14 +117,13 @@ int	main(int argc, char **argv, char **env)
 		data_base.cmds_list = parse_cmd(&data_base);
 	//	printf("%s\n", data_base.cmds_list->cmd_args[1]);
 		// END PARSING //
-		add_history(data_base.my_prompt_line);
-		add_myhistory(data_base.my_prompt_line);
+		super_history(data_base.my_prompt_line);
 		data_base.env_path = find_env_variable(env, "PATH");
 
 
 		// EXECUTION //
 
-		printf("%d\n", execute(env, &data_base));
+		execute(env, &data_base);
 		if (data_base.my_prompt_line)
 			free (data_base.my_prompt_line);
 		reset_data_base(&data_base);
