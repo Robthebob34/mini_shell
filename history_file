@@ -237,3 +237,32 @@ ls
 exit
 ls
 cd "src"
+ls
+ls
+ls -l
+ls -la
+pwd
+cd
+ls
+export
+export "test"="yo"
+env
+export "test=yo"
+env
+exit
+env
+env
+unset "TEST"
+env
+env
+unset "TEST"
+env
+exit
+exit
+exit
+env
+unset "TEST"
+env
+unset "TEST"
+env
+exit

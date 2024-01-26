@@ -47,7 +47,6 @@ int	specific_path(t_main *tools, char *str)
 int my_cd(t_main *tools, t_cmd *simple_cmd)
 {
 	int	ret;
-	printf("yo\n");
 	// segfault a cause de cmd_args non initialiser 
 	if(!simple_cmd->cmd_args[1])
 	{

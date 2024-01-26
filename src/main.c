@@ -103,6 +103,7 @@ int	main(int argc, char **argv, char **env)
 		//START LEXER //
 
 		data_base.token_array = malloc(sizeof(Token) * count_token(&lexer, data_base.my_prompt_line) + 1);
+		printf("yo\n");
 		init_lexer(&lexer, data_base.my_prompt_line);
 		data_base.token_array[i] = get_next_token(&lexer);
 		while (data_base.token_array[i].type != 5)
@@ -118,7 +119,7 @@ int	main(int argc, char **argv, char **env)
 	//	printf("%s\n", data_base.cmds_list->cmd_args[1]);
 		// END PARSING //
 		super_history(data_base.my_prompt_line);
-		data_base.env_path = find_env_variable(env, "PATH");
+		data_base.env_path = find_env_variable(data_base.env_tab, "PATH");
 
 
 		// EXECUTION //

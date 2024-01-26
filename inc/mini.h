@@ -115,14 +115,23 @@ int my_cd(t_main *tools, t_cmd *simple_cmd);
 int	my_env(t_main *data_base, t_cmd *simple_cmd);
 int	my_echo(t_main *tools, t_cmd *simple_cmd);
 int my_pwd(t_main *tools, t_cmd *simple_cmd);
+int	my_unset(t_main *tools, t_cmd *simple_cmd);
+int	my_export(t_main *tools, t_cmd *simple_cmd);
 int (*look_for_builtin(char *name))(t_main *data_base, t_cmd *single_cmd);
 
 // builtins utils
 void    super_history(char *str);
+size_t	equal_sign(char *str);
+int		check_valid_identifier(char c);
+char	*delete_quotes_value(char *str);
+char	*delete_quotes(char *str, char c);
 void	change_env_tab(char *new_pos, t_main *tools, const char *to_find);
 
 //signal 
 void    init_signal(void);
+
+//error msg 
+int	export_error(char *c);
 
 // parsing
 t_cmd *parse_cmd(t_main *data_base);
