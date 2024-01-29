@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/21 14:54:57 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/16 16:44:19 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <get_next_line.h>
-# include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
-# include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 
 typedef struct s_main
@@ -54,6 +54,8 @@ typedef enum {
     STRING,
 	EOF_TOKEN,
     VARIABLE,
+	OPTION_ARGUMENT,
+	OPTION,
     ERROR
 } TokenType;
 
@@ -119,6 +121,9 @@ const char	*read_regular_operator(Lexer *lexer, int start_position);
 const char	*read_double_quote(Lexer *lexer, int start_position);
 const char	*read_single_quote(Lexer *lexer, int start_position);
 const char	*read_quoted_string(Lexer *lexer, char quote_type);
+const char	*read_option(Lexer *lexer);
+char		*complete_line(int length_1, const char *input, char *var_name);
+char		*replace_env_variables(const char *input);
 int			find_closing_quote(Lexer *lexer, char quote_type);
 const char	*read_identifier(Lexer *lexer);
 int			is_valid_identifier_char(char c);

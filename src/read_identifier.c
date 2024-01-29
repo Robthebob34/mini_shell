@@ -3,7 +3,7 @@
 
 int	is_valid_identifier_char(char c)
 {
-    return (ft_isalnum(c) || c == '_');
+    return (ft_isalnum(c) || c == '_' || c =='/' || c == '.');
 }
 
 const char *read_identifier(Lexer *lexer)

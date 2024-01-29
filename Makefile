@@ -6,12 +6,11 @@
 #    By: rheck <rheck@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 14:39:41 by rheck             #+#    #+#              #
-#    Updated: 2023/12/21 15:40:58 by rheck            ###   ########.fr        #
+#    Updated: 2024/01/16 15:35:25 by rheck            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LFLAGS = -lreadline
 INC_DIR = ./inc
 SRC_DIR = ./src
@@ -27,15 +26,19 @@ MINISHELL_OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(MINISHELL_SRC))
 # Target
 MINISHELL_TARGET = minishell
 
-#pathing de la bibliotheque readline 
-READLINE_DIR = $(shell brew --prefix readline)
+#includes
 
-READLINE_LIB = -lreadline -lhistory -L $(READLINE_DIR)/lib
+INCLUDE = -Iincludes -I INC_DIR
+
+#pathing de la bibliotheque readline 
+READL   = -L/usr/local/lib -I/usr/local/include -Ireadline -I$(shell brew --prefix readline)/include -lreadline -lhistory -L $(shell brew --prefix readline)/lib
+
+CFLAGS  = -Wall -Wextra -Werror -I$(shell brew --prefix readline)/include -g -fsanitize=address
 
 all: $(MINISHELL_TARGET)
 
 $(MINISHELL_TARGET): $(MINISHELL_OBJ)
-	$(CC) $(CFLAGS) $(LFLAGS) $(READLINE_LIB) -o $@ $^
+	$(CC) $(CFLAGS) $(READL) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
