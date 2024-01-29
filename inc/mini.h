@@ -19,32 +19,9 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include <get_next_line.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-
-typedef struct s_main
-{
-	char	*my_prompt_line; // ligne d'entre utilisateur
-	char	*env_path; // a recuperer dans la varible env
-	char	**env_tab; // copie des variables d'environnement
-	char	*pwd; // a recuperer dans la variable env
-	char	*old_pwd; // a recuperer dans la variable env
-	pid_t	pid1; // variable de processus
-	int		*output;
-	int		history_file; // permet de savoir si le shell a deja ete lancer
-} t_main;
-
-typedef struct s_global {
-	int		last_err_code; // code erreur du dernier processus achever
-} t_global;
-
-typedef struct s_cmd {
-	char	*cmd_name; // nom de la commande 
-	char	**cmd_args; // tableau commande + argument (doit finir par NULL)
-	int		(*builtin)(t_main *, struct s_cmd *);
-} t_cmd;
+# include "get_next_line.h"
+# include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
+# include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/history.h>
 
 typedef enum {
     IDENTIFIER,
@@ -53,9 +30,8 @@ typedef enum {
     KEYWORD,
     STRING,
 	EOF_TOKEN,
-    VARIABLE,
-	OPTION_ARGUMENT,
 	OPTION,
+    VARIABLE,
     ERROR
 } TokenType;
 
@@ -68,6 +44,45 @@ typedef struct {
     TokenType type;
     const char *value;
 } Token;
+
+typedef struct s_main
+{
+	char	*my_prompt_line; // ligne d'entre utilisateur
+	char	*env_path; // a recuperer dans la varible env
+	char	**env_tab; // copie des variables d'environnement
+	char	*pwd; // a recuperer dans la variable env
+	char	*old_pwd; // a recuperer dans la variable env
+	int		pipes; // nombre de pipe 
+	pid_t   pid1;
+	int		index;
+	int		*output;
+	int		history_file; // permet de savoir si le shell a deja ete lancer
+	Token	*token_array;
+	struct s_cmd	*cmds_list;
+} t_main;
+
+typedef struct s_global {
+	int		last_err_code; // code erreur du dernier processus achever
+} t_global;
+
+typedef struct s_cmd {
+	char	*cmd_name; // nom de la commande 
+	char	**cmd_args; // tableau commande + argument (doit finir par NULL)
+	char 	*redirection;
+	int		fd_in; // redirection 
+	int		fd_out;
+	int		(*builtin)(t_main *, struct s_cmd *);
+} t_cmd;
+
+typedef struct s_parser_tools
+{
+	Lexer			*lexer_list;
+	Lexer			*redirections;
+	int				num_redirections;
+	struct s_tools	*tools;
+}	t_parser_tools;
+
+
 
 t_global my_global;
 
@@ -89,7 +104,8 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
-// a changer
+// initialisation
+int init_shell(char **env, t_main *data_base);
  
 int	print_history(void);
 
@@ -99,13 +115,30 @@ int	my_history(t_main *data_base, t_cmd *simple_cmd);
 int my_cd(t_main *tools, t_cmd *simple_cmd);
 int	my_env(t_main *data_base, t_cmd *simple_cmd);
 int	my_echo(t_main *tools, t_cmd *simple_cmd);
+int my_pwd(t_main *tools, t_cmd *simple_cmd);
+int	my_unset(t_main *tools, t_cmd *simple_cmd);
+int	my_export(t_main *tools, t_cmd *simple_cmd);
 int (*look_for_builtin(char *name))(t_main *data_base, t_cmd *single_cmd);
 
 // builtins utils
-void add_myhistory(char *str);
+void    super_history(char *str);
+size_t	equal_sign(char *str);
+int		check_valid_identifier(char c);
+char	*delete_quotes_value(char *str);
+char	*delete_quotes(char *str, char c);
+void	change_env_tab(char *new_pos, t_main *tools, const char *to_find);
 
 //signal 
 void    init_signal(void);
+
+//error msg 
+int	export_error(char *c);
+
+// parsing
+t_cmd *parse_cmd(t_main *data_base);
+t_cmd   parse_next_cmd(t_main *data_base);
+int	is_valid_arg(TokenType type);
+int	count_cmd(Token *lexer_list);
 
 // robin lexer 
 void	init_lexer(Lexer *lexer, const char *input);
@@ -121,9 +154,7 @@ const char	*read_regular_operator(Lexer *lexer, int start_position);
 const char	*read_double_quote(Lexer *lexer, int start_position);
 const char	*read_single_quote(Lexer *lexer, int start_position);
 const char	*read_quoted_string(Lexer *lexer, char quote_type);
-const char	*read_option(Lexer *lexer);
-char		*complete_line(int length_1, const char *input, char *var_name);
-char		*replace_env_variables(const char *input);
+const char *read_option(Lexer *lexer);
 int			find_closing_quote(Lexer *lexer, char quote_type);
 const char	*read_identifier(Lexer *lexer);
 int			is_valid_identifier_char(char c);

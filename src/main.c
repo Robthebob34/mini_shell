@@ -25,23 +25,25 @@ int	my_header(void)
 	return(0);
 }
 // permet d'executer depuis l'entre utilisateur des commandes simple sans arguments
-int	execute(char **env, char *env_path, t_main *data_base)
+int	execute(char **env, t_main *data_base)
 {
 	int errcode;
 	char *cmd;
 	char **cmd_path;
-	t_cmd just_a_try;
 
 	errcode = 0;
-	cmd_path = ft_split(env_path, ':');
-	cmd = get_cmd(cmd_path, data_base, &just_a_try);
+	cmd_path = ft_split(data_base->env_path, ':');
+	cmd = get_cmd(cmd_path, data_base, data_base->cmds_list);
 	if(!cmd)
+	{
+		printf("no cmd return\n");
 		return(0);
-	char *tab[] = {cmd, NULL}; // pour rajouter des arguments tu peux completer ce tableau avec les arguments sous formes de chaines de caracteres attention a bien rajouter NULL en fin de tableau 
+	}
 	//printf("%s\n", cmd);
+	//printf("%s\n", data_base->cmds_list[0].cmd_args[1]);
 	data_base->pid1 = fork();
 	if (data_base->pid1 == 0)
-		errcode = execve(cmd, tab, env);
+		errcode = execve(cmd, data_base->cmds_list->cmd_args, env);
 	waitpid(data_base->pid1, NULL, 0);
 	return (errcode);
 }
@@ -63,42 +65,68 @@ int	print_history(void)
 	}
 	return(0);
 }
+int	count_token(Lexer *lexer, char *prompt)
+{
+	int	result;
+	Token token_count;
 
+	token_count.type = KEYWORD;
+	result = 0;
+	init_lexer(lexer, prompt);
+	while(token_count.type != EOF_TOKEN)
+	{
+		token_count = get_next_token(lexer);
+		result++;
+	}
+	return (result);
+}
+int	reset_data_base(t_main *data_base)
+{
+	data_base->index = 0;
+	return(0);
+}
 int	main(int argc, char **argv, char **env)
 {
 	t_main	data_base;
+	Lexer lexer;
 	(void)argc;
 	(void)argv;
+	int i = 0;
 	my_header();
 	init_signal();
-	// charger les argument dans la structures main;
-	Token token;
-	Lexer lexer;
-	token.type = KEYWORD;
+	init_shell(env, &data_base);
 	data_base.env_tab = ft_arraydup(env);
 	while (1)
 	{
+		i = 0;
 		data_base.my_prompt_line = readline("\033[1;32mMy prompt \033[0m");
-		// LEXER //
-		if (!data_base.my_prompt_line)
-			break;
-		init_lexer(&lexer, data_base.my_prompt_line);
-		while (token.type != EOF_TOKEN)
-		{
-			token = get_next_token(&lexer); // lu mais pas stocker ? 
-			printf("token : %s, type : %u\n", token.value, token.type);
-		}
-		token.type = KEYWORD;
-		// PARSING //
+		//START LEXER //
 
-		add_history(data_base.my_prompt_line);
-		add_myhistory(data_base.my_prompt_line);
-		data_base.env_path = find_env_variable(env, "PATH");
+		data_base.token_array = malloc(sizeof(Token) * count_token(&lexer, data_base.my_prompt_line) + 1);
+		printf("yo\n");
+		init_lexer(&lexer, data_base.my_prompt_line);
+		data_base.token_array[i] = get_next_token(&lexer);
+		while (data_base.token_array[i].type != 5)
+		{
+			i++;
+			data_base.token_array[i] = get_next_token(&lexer);
+			printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
+		}
+		// END LEXER //
+
+		// START PARSING//
+		data_base.cmds_list = parse_cmd(&data_base);
+	//	printf("%s\n", data_base.cmds_list->cmd_args[1]);
+		// END PARSING //
+		super_history(data_base.my_prompt_line);
+		data_base.env_path = find_env_variable(data_base.env_tab, "PATH");
+
 
 		// EXECUTION //
 
-		printf("%d\n", execute(env, data_base.env_path, &data_base));
+		execute(env, &data_base);
 		if (data_base.my_prompt_line)
 			free (data_base.my_prompt_line);
+		reset_data_base(&data_base);
 	}
 }
