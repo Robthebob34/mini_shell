@@ -2,14 +2,14 @@
 
 void	init_lexer(Lexer *lexer, const char *input)
 {
-    printf("5\n");
 	lexer->position = 0;
 	lexer->input = input;
-    printf("6\n");
 }
 
 void skip_whitespace(Lexer *lexer)
 {
+    if (!lexer->input)
+        return ;
     while (is_space(lexer->input[lexer->position]))
         lexer->position++;
 }
@@ -52,6 +52,11 @@ Token get_next_token(Lexer *lexer)
         // Identifier un nombre
         value = read_number(lexer);
         return create_token(NUMBER, value);
+    }
+    else if (current_char == '-')
+    {
+        value = read_option(lexer);
+        return create_token(OPTION, value);
     }
 	else
 	{
