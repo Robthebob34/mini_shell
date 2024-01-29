@@ -1,49 +1,5 @@
-ls -l
-ls -lllllllll
-cat "make'file'"
-cat
 ls
-make
-yes
-ok
-cool
-nickel
-ca
-fonctonnw
-exit
-exit
-exit
-nickel
-exit
-exit
-exit
-exit
-
-
- 
-
-
-
-exit
-
-ls
-cat "yooo $USER lets"
-cat "yoooo $PATH clear"
+pwd
+history
 clear
-cat f
-make
-cat '$USER'
-" f $USER fe"
-"  $USER "
-" $USER "
-make
-echo "yoo $USER lol"
-echo "$USER lol"
-echo "$USER lol"
-ls
-ls
-ls -ls
-ls -l
-cd src
-cd src/
-cat src/main.c 
+exit
