@@ -8,6 +8,8 @@ void	init_lexer(Lexer *lexer, const char *input)
 
 void skip_whitespace(Lexer *lexer)
 {
+    if (!lexer->input)
+        return ;
     while (is_space(lexer->input[lexer->position]))
         lexer->position++;
 }
