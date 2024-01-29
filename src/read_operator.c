@@ -4,7 +4,7 @@
 
 int is_operator_char(char c)
 {
-    return (c == '|' || c == '>' || c == '<' || c == '$'|| c =='&');
+    return (c == '|' || c == '>' || c == '<' || c == '$'|| c == '&');
 }
 
 const char  *read_operator(Lexer *lexer)
