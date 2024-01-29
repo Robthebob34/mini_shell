@@ -19,7 +19,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include <get_next_line.h>
+# include "get_next_line.h"
 # include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
 # include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/history.h>
 
@@ -69,7 +69,8 @@ typedef struct s_cmd {
 	char	*cmd_name; // nom de la commande 
 	char	**cmd_args; // tableau commande + argument (doit finir par NULL)
 	char 	*redirection;
-	
+	int		fd_in; // redirection 
+	int		fd_out;
 	int		(*builtin)(t_main *, struct s_cmd *);
 } t_cmd;
 

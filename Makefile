@@ -1,55 +1,126 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rheck <rheck@student.42.fr>                +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/21 14:39:41 by rheck             #+#    #+#              #
-#    Updated: 2023/12/21 15:40:58 by rheck            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = minishell
+MKDIR = mkdir
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-LFLAGS = -lreadline
-INC_DIR = ./inc
-SRC_DIR = ./src
-BUILT_DIR = ./src/builtins
-OBJ_DIR = ./obj
 
-# Source files
-MINISHELL_SRC = $(wildcard $(SRC_DIR)/*.c)
+LIBFTP = Lib/libft
+PATHB = build/
+PATHO = build/objs/
+PATHS = src/
+PATHSL = src/lexer/
+PATHSP = src/parser/
+PATHSB = src/builtins/
+PATHSEX = src/expander/
+PATHSU = src/utils/
+PATHSE = src/error/
+PATHP = src/pipex/
+PATHEX = src/exec/
 
-# Object files
-MINISHELL_OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(MINISHELL_SRC))
+BUILD_PATHS = $(PATHB) $(PATHO)
 
-# Target
-MINISHELL_TARGET = minishell
+src	=	src/main.c \
+		src/signal.c \
+		src/error.c \
+		src/init.c \
+		src/builtins/my_cd.c \
+		src/builtins/my_echo.c \
+		src/builtins/my_env.c \
+		src/builtins/my_export.c \
+		src/builtins/my_unset.c \
+		src/builtins/my_pwd.c \
+		src/builtins/my_exit.c \
+		src/builtins/my_history.c \
+		src/builtins/builtins_utils.c \
+		src/builtins/builtin.c \
+		src/lexer/read_identifier.c \
+		src/lexer/read_number.c \
+		src/lexer/read_operator.c \
+		src/lexer/read_option.c \
+		src/lexer/read_quotes.c \
+		src/lexer/lexer.c \
+		src/lexer/utils_lexer.c \
+		src/lexer/utils_lexer2.c \
+		src/exec/exec.c \
+		src/utils/ft_split.c \
+		src/utils/get_next_line.c \
+		src/parser/parser.c \
+		src/utils/utils.c \
 
-#pathing de la bibliotheque readline 
+
+OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
+
+FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
+
+LIBFT	=	./lib/libft/libft.a
+
+HEADER	=	.includes/mini.h \
+			.includes/get_next_line.h \
+
 READLINE_DIR = $(shell brew --prefix readline)
 
 READLINE_LIB = -lreadline -lhistory -L $(READLINE_DIR)/lib
+	
+INCLUDES =-Iincludes -I$(PATHP) -I$(LIBFTP) -I$(READLINE_DIR)/include 
 
-all: $(MINISHELL_TARGET)
+all: $(BUILD_PATHS) $(NAME)
 
-$(MINISHELL_TARGET): $(MINISHELL_OBJ)
-	$(CC) $(CFLAGS) $(LFLAGS) $(READLINE_LIB) -o $@ $^
+$(PATHO)%.o:: $(PATHS)%.c
+	@echo "Compiling ${notdir $<}			in	$(PATHS)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+$(PATHO)%.o:: $(PATHSL)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSL)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+$(PATHO)%.o:: $(PATHSP)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSP)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSB)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSB)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSEX)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSEX)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSU)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSU)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSE)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSE)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHEX)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHEX)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(NAME): $(LIBFT) $(OBJS) $(HEADERS)
+	@$(CC) $(FLAGS) $(LIBFT) $(OBJS) $(READLINE_LIB) -o $(NAME)
+
+	@echo "Success"
+
+$(LIBFT):
+	@$(MAKE) -C ./Lib/libft
+
+$(PATHB):
+	@$(MKDIR) $(PATHB)
+
+$(PATHO):
+	@$(MKDIR) $(PATHO)
 
 clean:
-	rm -rf $(OBJ_DIR)
+	@echo "Cleaning"
+	@rm -f $(OBJS)
+	@rm -f $(PATHB).tmp*
+	@rmdir $(PATHO) $(PATHB)
+	@make fclean -C Lib/libft
 
 fclean: clean
-	rm -f $(MINISHELL_TARGET)
-	clear
+	@rm -f $(NAME)
+	@rm -f $(LIBFT)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PRECIOUS: $(PATHO)%.o
