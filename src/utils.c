@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:46 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/21 14:54:48 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/16 16:54:14 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ size_t	ft_strlen(const char *str)
 	size_t i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while(str[i])
 	{
 		i++;
