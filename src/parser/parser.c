@@ -6,11 +6,12 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 17:02:19 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/04 13:40:51 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/29 16:06:19 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini.h"
+
 t_cmd	*parse_cmd(t_main *data_base)
 {
 	t_cmd *cmd_line;

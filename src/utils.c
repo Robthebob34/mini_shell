@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:46 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/16 16:54:14 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/29 14:52:48 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ char	*ft_strdup(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	new = malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!new)
 		return (NULL);
