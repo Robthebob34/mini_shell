@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:17:58 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 18:54:17 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/30 12:53:27 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ Token get_next_token(Lexer *lexer)
     	value = read_quoted_string(lexer, current_char);
     	return create_token(STRING, value);
     }
-    if (ft_isalpha(current_char))
+    if (ft_isalpha(current_char) || current_char == '.')
 	{
         value = read_identifier(lexer);
         if (lexer->is_cmd == 1)

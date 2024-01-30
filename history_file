@@ -6,3 +6,10 @@ exit
 ls
 ls -l
 ls
+cd
+make
+
+cd
+cd
+./minishell 
+cd

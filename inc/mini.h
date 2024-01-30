@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 18:47:43 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/30 12:54:47 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "get_next_line.h"
-# include </Users/rheck/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
-# include </Users/rheck/.brew/Cellar/readline/8.2.7/include/readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum {
     IDENTIFIER,
