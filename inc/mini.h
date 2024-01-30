@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/21 14:54:57 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:47:43 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "get_next_line.h"
-# include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
-# include </Users/mgigot/.brew/Cellar/readline/8.2.7/include/readline/history.h>
+# include </Users/rheck/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
+# include </Users/rheck/.brew/Cellar/readline/8.2.7/include/readline/history.h>
 
 typedef enum {
     IDENTIFIER,
@@ -32,12 +32,14 @@ typedef enum {
 	EOF_TOKEN,
 	OPTION,
     VARIABLE,
-    ERROR
+    ERROR,
+	ARGUMENT
 } TokenType;
 
 typedef struct {
     const char *input;
-    size_t position;
+    size_t		position;
+	int			is_cmd;
 } Lexer;
 
 typedef struct {
@@ -161,6 +163,7 @@ int			is_valid_identifier_char(char c);
 const char	*read_number(Lexer *lexer);
 int			ft_isalnum(char c);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
-void *my_realloc(void *ptr, size_t old_size, size_t new_size);
+void		*my_realloc(void *ptr, size_t old_size, size_t new_size);
+char		*complete_line(int length_1, const char *input, char *var_name);
 
 #endif

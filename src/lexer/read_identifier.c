@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_identifier.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/29 18:18:03 by rheck             #+#    #+#             */
+/*   Updated: 2024/01/29 18:18:04 by rheck            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../../inc/mini.h"
 
 int	is_valid_identifier_char(char c)
 {
-    return (ft_isalnum(c) || c == '_');
+    return (ft_isalnum(c) || c == '_' || c =='/' || c == '.');
 }
 
 const char *read_identifier(Lexer *lexer)

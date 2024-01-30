@@ -3,3 +3,6 @@ pwd
 history
 clear
 exit
+ls
+ls -l
+ls

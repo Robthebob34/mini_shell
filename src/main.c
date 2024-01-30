@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:39 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/21 15:40:22 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:30:42 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ int	main(int argc, char **argv, char **env)
 		data_base.token_array[i] = get_next_token(&lexer);
 		while (data_base.token_array[i].type != 5)
 		{
-			i++;
 			data_base.token_array[i] = get_next_token(&lexer);
 			printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
+			i++;
 		}
 		// END LEXER //
 
