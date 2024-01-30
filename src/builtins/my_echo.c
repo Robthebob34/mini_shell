@@ -6,7 +6,7 @@ void	print_lines(int i, char **str, int out)
 	{
 		ft_putstr_fd(str[i++], out);
 		if (str[i])
-			ft_putchar_fd(' ', out);
+			ft_putchar_fd(' ' , out);
 	}
 }
 int	my_echo(t_main *tools, t_cmd *simple_cmd)

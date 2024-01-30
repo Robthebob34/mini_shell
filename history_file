@@ -39,3 +39,7 @@ eknogdl knons
 ./minishell 
 cd src []
 exit
+cat -e file.txt 
+./minishell 
+cat -e file.txt 
+echo helo kitty
