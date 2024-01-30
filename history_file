@@ -6,3 +6,9 @@ exit
 ls
 ls -l
 ls
+ls
+ls -l
+ls -la
+pwd
+minishell
+minishell

@@ -106,11 +106,12 @@ int	main(int argc, char **argv, char **env)
 		printf("yo\n");
 		init_lexer(&lexer, data_base.my_prompt_line);
 		data_base.token_array[i] = get_next_token(&lexer);
+		printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
 		while (data_base.token_array[i].type != 5)
 		{
+			i++;
 			data_base.token_array[i] = get_next_token(&lexer);
 			printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
-			i++;
 		}
 		// END LEXER //
 
