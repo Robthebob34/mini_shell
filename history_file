@@ -6,10 +6,36 @@ exit
 ls
 ls -l
 ls
-cd
-make
-
-cd
-cd
+ls
+ls -l
+ls -la
+pwd
+minishell
+minishell
 ./minishell 
+./minishell 
+exit
+ext
+exit
+exit
+./minishell 
+exit
+exit
+export "rob=lol"
+env
+unset "rob=lol"
+env
+unset "rob"
+env
+export "rob=lol"
+env
+export rob=lol
+env
+unset rob
+env
+clear
 cd
+eknogdl knons
+./minishell 
+cd src []
+exit

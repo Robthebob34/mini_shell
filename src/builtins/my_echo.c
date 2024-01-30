@@ -30,8 +30,8 @@ int	my_echo(t_main *tools, t_cmd *simple_cmd)
 			break ;
 		i++;
 	}
-	print_lines(i, simple_cmd->cmd_args, STDOUT_FILENO);
+	print_lines(i, simple_cmd->cmd_args, 1);
 	if (n_option == false)
-		ft_putchar_fd('\n', STDOUT_FILENO);
-	return (EXIT_SUCCESS);
+		ft_putchar_fd('\n', 1);
+	return (0);
 }

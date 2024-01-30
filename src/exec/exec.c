@@ -38,12 +38,13 @@ char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 	char	*tmp;
 	char	*command;
 	int i = 0;
-	// mettre une premiere tentative d'acces pour verifier que l'entre utilisateur ne soit pas deja un pathing absolu
 	if((just_a_try->builtin = look_for_builtin(data_base->cmds_list->cmd_name)))
 	{
 		just_a_try->builtin(data_base, just_a_try);
 		return (NULL);
 	}
+	if(access(data_base->cmds_list->cmd_name, X_OK) == 0)
+		return(data_base->cmds_list->cmd_name);
 	while (path[i])
 	{
 		tmp = ft_strjoin(path[i], "/");
