@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 17:02:19 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 16:06:19 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/30 13:33:07 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_cmd   parse_next_cmd(t_main *data_base)
 }
 int	is_valid_arg(TokenType type)
 {
-	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER)
+	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER || type == ARGUMENT)
 		return (0);
 	else
 		return (1);

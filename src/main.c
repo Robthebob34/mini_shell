@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 18:30:42 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/30 13:20:20 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,14 @@ int	count_token(Lexer *lexer, char *prompt)
 	token_count.type = KEYWORD;
 	result = 0;
 	init_lexer(lexer, prompt);
-	while(token_count.type != EOF_TOKEN)
+	int i = 0;
+	while(i < 3)
 	{
+		printf("i : %d\n", i);
 		token_count = get_next_token(lexer);
+		printf("type : %d   value : %s\n", token_count.type, token_count.value);
 		result++;
+		i++;
 	}
 	return (result);
 }
