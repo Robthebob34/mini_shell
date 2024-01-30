@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "get_next_line.h"
-# include </Users/rheck/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
-# include </Users/rheck/.brew/Cellar/readline/8.2.7/include/readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum {
     IDENTIFIER,
