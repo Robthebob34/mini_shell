@@ -43,7 +43,7 @@ char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 		just_a_try->builtin(data_base, just_a_try);
 		return (NULL);
 	}
-	if(access(data_base->cmds_list->cmd_name, X_OK) == 0)
+	if(access(data_base->cmds_list->cmd_name, X_OK) == 0) // attention un utilisateur peut changer le nom d'executable pour lui donner le nom d' une commande 
 		return(data_base->cmds_list->cmd_name);
 	while (path[i])
 	{
@@ -56,4 +56,42 @@ char	*get_cmd(char **path, t_main *data_base, t_cmd *just_a_try)
 		i++;
 	}
 	return ("command not found\n"); // code d'erreur 127
+}
+int	prepare_execute(t_main *data_base)
+{
+	my_global.in_cmd = 1;
+	if (data_base->pipes == 0)
+		single_cmd(data_base->cmds_list, data_base);
+	else
+	{
+		data_base->pid = ft_calloc(sizeof(int), data_base->pipes + 2);
+		if (!data_base->pid)
+			return (1); // ft_error();
+		execute(data_base, data_base->cmds_list);
+	}
+	my_global.in_cmd = 0;
+	return (0);
+}
+int	execute(t_main *data_base, t_cmd *cmd_list)
+{
+	int		end[2];
+	int		i;
+	int		fd_in;
+
+	fd_in = STDIN_FILENO;
+	i = 0;
+	while (cmd_list[i].cmd_name != NULL)
+	{
+		if (cmd_list[i + 1].cmd_name)
+			pipe(end);
+		//send_heredoc(data_base, cmd_list);
+		ft_fork(data_base, end, fd_in, cmd_list);
+		close(end[1]);
+		if (i > 0)
+			close(fd_in);
+		fd_in = check_fd_heredoc(data_base, end, cmd_list);
+		i++;
+	}
+	pipe_wait(data_base->pid, data_base->pipes);
+	return (0);
 }

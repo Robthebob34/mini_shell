@@ -24,29 +24,7 @@ int	my_header(void)
 	printf("        |___/                      \n");
 	return(0);
 }
-// permet d'executer depuis l'entre utilisateur des commandes simple sans arguments
-int	execute(char **env, t_main *data_base)
-{
-	int errcode;
-	char *cmd;
-	char **cmd_path;
 
-	errcode = 0;
-	cmd_path = ft_split(data_base->env_path, ':');
-	cmd = get_cmd(cmd_path, data_base, data_base->cmds_list);
-	if(!cmd)
-	{
-		printf("no cmd return\n");
-		return(0);
-	}
-	//printf("%s\n", cmd);
-	//printf("%s\n", data_base->cmds_list[0].cmd_args[1]);
-	data_base->pid1 = fork();
-	if (data_base->pid1 == 0)
-		errcode = execve(cmd, data_base->cmds_list->cmd_args, env);
-	waitpid(data_base->pid1, NULL, 0);
-	return (errcode);
-}
 //fait marcher la commande "history" mais je ne pense pas que l'on puisse utiliser la fonction history_get
 int	print_history(void)
 {
@@ -83,6 +61,7 @@ int	count_token(Lexer *lexer, char *prompt)
 int	reset_data_base(t_main *data_base)
 {
 	data_base->index = 0;
+	data_base->fork_index = 0;
 	return(0);
 }
 int	main(int argc, char **argv, char **env)
@@ -117,7 +96,6 @@ int	main(int argc, char **argv, char **env)
 
 		// START PARSING//
 		data_base.cmds_list = parse_cmd(&data_base);
-	//	printf("%s\n", data_base.cmds_list->cmd_args[1]);
 		// END PARSING //
 		super_history(data_base.my_prompt_line);
 		data_base.env_path = find_env_variable(data_base.env_tab, "PATH");
@@ -125,7 +103,7 @@ int	main(int argc, char **argv, char **env)
 
 		// EXECUTION //
 
-		execute(env, &data_base);
+		prepare_execute(&data_base);
 		if (data_base.my_prompt_line)
 			free (data_base.my_prompt_line);
 		reset_data_base(&data_base);

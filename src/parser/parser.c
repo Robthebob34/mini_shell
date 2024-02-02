@@ -17,17 +17,17 @@ t_cmd	*parse_cmd(t_main *data_base)
 	t_cmd *cmd_line;
 
 	int	i = 0;
-	cmd_line = malloc(sizeof(t_cmd) * (count_cmd(data_base->token_array) + 1));
+	data_base->pipes = count_pipe(data_base->token_array);
+	cmd_line = malloc(sizeof(t_cmd) * (data_base->pipes + 1));
 	cmd_line[i] = parse_next_cmd(data_base);
 	while(cmd_line[i].cmd_name != NULL)
 	{
 		i++;
 		cmd_line[i] = parse_next_cmd(data_base);
 	}
-	//printf("%s\n", cmd_line[0].cmd_args[1]);
 	return (cmd_line);
 }
-int	count_cmd(Token *lexer_list)
+int	count_pipe(Token *lexer_list)
 {
 	int i;
 	int	count; 
@@ -36,7 +36,7 @@ int	count_cmd(Token *lexer_list)
 	count = 0;
 	while(lexer_list[i].type != EOF_TOKEN)
 	{
-		if(lexer_list[i].type == OPERATOR)
+		if(lexer_list[i].type == PIPE)
 			count++;
 		i++;
 	}
@@ -48,7 +48,7 @@ int	count_args(Token *lexer_list)
 	int		i;
 
 	i = 0;
-	while (lexer_list[i].type != OPERATOR && lexer_list[i].type != EOF_TOKEN)
+	while (lexer_list[i].type != PIPE && lexer_list[i].type != EOF_TOKEN)
 	{
 		i++;
 	}
@@ -70,13 +70,16 @@ t_cmd   parse_next_cmd(t_main *data_base)
     if(data_base->token_array[data_base->index].type == IDENTIFIER)
     {
         ret_tab[j] = ft_strdup(data_base->token_array[data_base->index].value);
-		//ft_lexerdelone(&data_base->token_array, i);
 		data_base->index++;
         while(is_valid_arg(data_base->token_array[data_base->index].type) == 0)
         {
-        	j++;
-            ret_tab[j] = ft_strdup(data_base->token_array[data_base->index].value);
-			//ft_lexerdelone(&data_base->token_array, i);
+			if(data_base->token_array[data_base->index].type == OPERATOR)
+				data_base->index = place_redirection(&ret, data_base, data_base->index);
+			else
+			{
+        		j++;
+            	ret_tab[j] = ft_strdup(data_base->token_array[data_base->index].value);
+			}
 			data_base->index++;
 		}
     }
@@ -95,8 +98,25 @@ t_cmd   parse_next_cmd(t_main *data_base)
 }
 int	is_valid_arg(TokenType type)
 {
-	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER)
+	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER || OPERATOR)
 		return (0);
 	else
 		return (1);
+}
+int	place_redirection(t_cmd *new_dir, t_main *data_base, int pos)
+{
+	if(data_base->token_array[pos].value[0] == '<')
+	{
+		new_dir->redirection_name = ft_strdup(data_base->token_array[pos + 1].value);
+		new_dir->redirection = ft_strdup(data_base->token_array[pos].value);
+		new_dir->fd_in = 1;
+	}
+	if(data_base->token_array[pos].value[0] == '>')
+	{
+		new_dir->redirection_name = ft_strdup(data_base->token_array[pos + 1].value);
+		new_dir->redirection = ft_strdup(data_base->token_array[pos].value);
+		new_dir->fd_out = 1;
+	}
+	pos += 1;
+	return(pos);
 }

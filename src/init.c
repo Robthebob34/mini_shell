@@ -23,5 +23,6 @@ int init_shell(char **env, t_main *data_base)
     data_base->old_pwd = ft_strdup(str);
     free(str);
     data_base->index = 0;
+    data_base->fork_index = 0;
     return (0);
 }

@@ -12,3 +12,8 @@ ls -la
 pwd
 minishell
 minishell
+ls
+ls -l
+ls -la
+pwd
+exit

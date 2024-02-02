@@ -33,7 +33,8 @@ typedef enum {
 	OPTION,
     VARIABLE,
     ERROR,
-	ARGUMENT
+	ARGUMENT,
+	PIPE
 } TokenType;
 
 typedef struct {
@@ -55,8 +56,9 @@ typedef struct s_main
 	char	*pwd; // a recuperer dans la variable env
 	char	*old_pwd; // a recuperer dans la variable env
 	int		pipes; // nombre de pipe 
-	pid_t   pid1;
+	int		*pid;
 	int		index;
+	int		fork_index;
 	int		*output;
 	int		history_file; // permet de savoir si le shell a deja ete lancer
 	Token	*token_array;
@@ -65,12 +67,14 @@ typedef struct s_main
 
 typedef struct s_global {
 	int		last_err_code; // code erreur du dernier processus achever
+	int		in_cmd;
 } t_global;
 
 typedef struct s_cmd {
 	char	*cmd_name; // nom de la commande 
 	char	**cmd_args; // tableau commande + argument (doit finir par NULL)
-	char 	*redirection;
+	char 	*redirection_name;
+	char	*redirection;
 	int		fd_in; // redirection 
 	int		fd_out;
 	int		(*builtin)(t_main *, struct s_cmd *);
@@ -132,6 +136,15 @@ void	change_env_tab(char *new_pos, t_main *tools, const char *to_find);
 
 //signal 
 void    init_signal(void);
+
+//exec 
+int	execute(t_main *data_base, t_cmd *cmd_list);
+int	prepare_execute(t_main *data_base);
+void	single_cmd(t_cmd *cmd, t_main *tools);
+
+// exec utils 
+int	ft_fork(t_main *data_base, int end[2], int fd_in, t_cmd *cmd);
+int	pipe_wait(int *pid, int amount);
 
 //error msg 
 int	export_error(char *c);
