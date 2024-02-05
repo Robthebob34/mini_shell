@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:18:03 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/30 13:31:52 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 13:19:42 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	is_valid_identifier_char(char c)
 {
-    return (ft_isalnum(c) || c == '_' || c =='/' || c == '.' || c =='=');
+    return (ft_isalnum(c) || c == '_' || c =='/' || c == '.' || c =='=' || c == '$' || c =='?');
 }
 
 const char *read_identifier(Lexer *lexer)

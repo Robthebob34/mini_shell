@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/30 13:20:20 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/31 12:33:16 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	count_token(Lexer *lexer, char *prompt)
 	result = 0;
 	init_lexer(lexer, prompt);
 	int i = 0;
-	while(i < 3)
+	while(token_count.type != EOF_TOKEN)
 	{
 		printf("i : %d\n", i);
 		token_count = get_next_token(lexer);
@@ -110,7 +110,6 @@ int	main(int argc, char **argv, char **env)
 		printf("yo\n");
 		init_lexer(&lexer, data_base.my_prompt_line);
 		data_base.token_array[i] = get_next_token(&lexer);
-		printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
 		while (data_base.token_array[i].type != 5)
 		{
 			i++;
@@ -118,7 +117,7 @@ int	main(int argc, char **argv, char **env)
 			printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
 		}
 		// END LEXER //
-
+		expand_var(&data_base);
 		// START PARSING//
 		data_base.cmds_list = parse_cmd(&data_base);
 	//	printf("%s\n", data_base.cmds_list->cmd_args[1]);
