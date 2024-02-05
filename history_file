@@ -58,3 +58,11 @@ echo $USERlol
 echo $USER lol
 echo $?
 echo $?lol
+echo "$USER yoo $USER"
+echo "$USER"
+echo "$USER yoo $USER"
+echo "cat lol.c | cat > lol.c"
+echo '$USER'
+env
+/bin/ls
+echo $?

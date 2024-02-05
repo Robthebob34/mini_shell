@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:06:54 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/05 14:29:48 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 14:36:14 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ char *replace_env_variables_quotes(const char *input)
 
 char *complete_line_quotes(int length_1, const char *input, char *var_name)
 {
-	char *part_1;
-	char *part_2;
-	char *var;
+	char	*part_1;
+	char	*part_2;
+	char	*var;
+	char	*result;
 
 	var = getenv(var_name);
 	part_1 = malloc(sizeof(char) * (length_1 + 1));
