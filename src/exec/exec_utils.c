@@ -26,51 +26,56 @@ int	pipe_wait(int *pid, int amount)
 		my_global.last_err_code = WEXITSTATUS(status);
 	return (0);
 }
-void	dup_cmd(t_cmd *cmd, t_tools *tools, int end[2], int fd_in)
+void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in)
 {
-	if (cmd->prev && dup2(fd_in, STDIN_FILENO) < 0)
+	if (tools->fork_index > 0 && dup2(fd_in, 0) < 0)
 		ft_error(4, tools);
 	close(end[0]);
-	if (cmd->next && dup2(end[1], STDOUT_FILENO) < 0)
+	if (tools->fork_index < tools->pipes && dup2(end[1], 1) < 0)
 		ft_error(4, tools);
 	close(end[1]);
-	if (cmd->prev)
+	if (tools->fork_index > 0)
 		close(fd_in);
-	handle_cmd(cmd, tools);
+	handle_cmd(cmd, tools, tools->fork_index);
 }
-void	handle_cmd(t_cmd *cmd, t_tools *tools)
+void	handle_cmd(t_cmd *cmd, t_main *tools, int cmd_nb)
 {
 	int	exit_code;
 
 	exit_code = 0;
-	if (cmd->redirections)
+	if (tools->redirection > 0)
 		if (check_redirections(cmd))
 			exit(1);
-	if (cmd->builtin != NULL)
+	if ((cmd->builtin = look_for_builtin(tools->cmds_list->cmd_name)))
 	{
 		exit_code = cmd->builtin(tools, cmd);
 		exit(exit_code);
 	}
-	else if (cmd->str[0][0] != '\0')
-		exit_code = find_cmd(cmd, tools);
+	else if (cmd->cmd_args[0][0] != '\0')
+		exit_code = find_cmd(cmd, tools, cmd_nb);
 	exit(exit_code);
 }
-int	find_cmd(t_cmd *cmd, t_main *tools)
+int	find_cmd(t_cmd *cmd, t_main *tools, int cmd_nb)
 {
 	int		i;
+	char	**path_exec;
+	char 	*tmp;
 	char	*mycmd;
 
 	i = 0;
-	cmd->str = resplit_str(cmd->str);
-	if (!access(cmd->str[0], F_OK))
-		execve(cmd->str[0], cmd->str, tools->envp);
-	while (tools->paths[i])
+	//cmd->str = resplit_str(cmd->str);
+	path_exec = ft_split(tools->env_path, ':');
+	if (!access(cmd[cmd_nb].cmd_name, F_OK))
+		execve(cmd[cmd_nb].cmd_name, cmd[cmd_nb].cmd_args, tools->env_tab);
+	while (path_exec[i])
 	{
-		mycmd = ft_strjoin(tools->paths[i], cmd->str[0]);
+		tmp = ft_strjoin(path_exec[i], "/");
+		mycmd = ft_strjoin(tmp, cmd[cmd_nb].cmd_name);
+		free(tmp);
 		if (!access(mycmd, F_OK))
-			execve(mycmd, cmd->str, tools->envp);
+			execve(mycmd, cmd[cmd_nb].cmd_args, tools->env_tab);
 		free(mycmd);
 		i++;
 	}
-	return (cmd_not_found(cmd->str[0]));
+	return (cmd_not_found(cmd[cmd_nb].cmd_name));
 }

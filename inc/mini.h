@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 18:47:43 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 11:59:14 by mgigot           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MINI_H
 # define MINI_H
@@ -19,6 +19,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include "libft.h"
 # include "get_next_line.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -36,6 +37,15 @@ typedef enum {
 	ARGUMENT,
 	PIPE
 } TokenType;
+
+typedef enum {
+	GREAT,
+	GREAT_GREAT,
+	LESS,
+	LESS_LESS,
+	ND
+} RedirectionType;
+
 
 typedef struct {
     const char *input;
@@ -59,8 +69,10 @@ typedef struct s_main
 	int		*pid;
 	int		index;
 	int		fork_index;
+	int		redirection;
 	int		*output;
 	int		history_file; // permet de savoir si le shell a deja ete lancer
+	int		heredoc;
 	Token	*token_array;
 	struct s_cmd	*cmds_list;
 } t_main;
@@ -68,12 +80,15 @@ typedef struct s_main
 typedef struct s_global {
 	int		last_err_code; // code erreur du dernier processus achever
 	int		in_cmd;
+	int		in_heredoc;
+	int		stop_heredoc;
 } t_global;
 
 typedef struct s_cmd {
 	char	*cmd_name; // nom de la commande 
 	char	**cmd_args; // tableau commande + argument (doit finir par NULL)
 	char 	*redirection_name;
+	char	*redirection_name2;
 	char	*redirection;
 	int		fd_in; // redirection 
 	int		fd_out;
@@ -98,7 +113,6 @@ char	*find_env_variable(char **envp, char *to_find);
 // utils
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	**ft_split(char *s, char c);
 size_t	ft_strlen(const char *str);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
@@ -140,20 +154,29 @@ void    init_signal(void);
 //exec 
 int	execute(t_main *data_base, t_cmd *cmd_list);
 int	prepare_execute(t_main *data_base);
+int	send_heredoc(t_main *tools, t_cmd *cmd);
 void	single_cmd(t_cmd *cmd, t_main *tools);
+void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in);
+void	handle_cmd(t_cmd *cmd, t_main *tools, int cmd_nb);
+int	find_cmd(t_cmd *cmd, t_main *tools, int cmd_nb);
 
 // exec utils 
 int	ft_fork(t_main *data_base, int end[2], int fd_in, t_cmd *cmd);
+int	check_fd_heredoc(t_main *tools, int end[2], t_cmd cmd);
 int	pipe_wait(int *pid, int amount);
+int	check_redirections(t_cmd *cmd);
 
 //error msg 
 int	export_error(char *c);
+int	ft_error(int error, t_main *tools);
+int	cmd_not_found(char *str);
 
 // parsing
 t_cmd *parse_cmd(t_main *data_base);
 t_cmd   parse_next_cmd(t_main *data_base);
 int	is_valid_arg(TokenType type);
-int	count_cmd(Token *lexer_list);
+int	place_redirection(t_cmd *new_dir, t_main *data_base, int pos);
+int	count_pipe(Token *lexer_list);
 
 // robin lexer 
 void	init_lexer(Lexer *lexer, const char *input);
@@ -174,7 +197,6 @@ int			find_closing_quote(Lexer *lexer, char quote_type);
 const char	*read_identifier(Lexer *lexer);
 int			is_valid_identifier_char(char c);
 const char	*read_number(Lexer *lexer);
-int			ft_isalnum(char c);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 void		*my_realloc(void *ptr, size_t old_size, size_t new_size);
 char		*complete_line(int length_1, const char *input, char *var_name);

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:22 by rheck             #+#    #+#             */
-/*   Updated: 2023/12/21 14:54:25 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 10:21:36 by mgigot           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../inc/mini.h"
 // permet de trouver une ligne precise dans 
@@ -84,12 +84,13 @@ int	execute(t_main *data_base, t_cmd *cmd_list)
 	{
 		if (cmd_list[i + 1].cmd_name)
 			pipe(end);
-		//send_heredoc(data_base, cmd_list);
+		if(send_heredoc(data_base, cmd_list))
+			return(1);
 		ft_fork(data_base, end, fd_in, cmd_list);
 		close(end[1]);
 		if (i > 0)
 			close(fd_in);
-		fd_in = check_fd_heredoc(data_base, end, cmd_list);
+		fd_in = check_fd_heredoc(data_base, end, cmd_list[i]);
 		i++;
 	}
 	pipe_wait(data_base->pid, data_base->pipes);

@@ -19,3 +19,16 @@ void	single_cmd(t_cmd *cmd, t_main *tools)
 	if (WIFEXITED(status))
 		my_global.last_err_code = WEXITSTATUS(status);
 }
+int	check_fd_heredoc(t_main *tools, int end[2], t_cmd cmd) // attention dereference du pointeur 
+{
+	int	fd_in;
+
+	if (tools->heredoc)
+	{
+		close(end[0]);
+		fd_in = open(cmd.redirection_name, O_RDONLY);
+	}
+	else
+		fd_in = end[0];
+	return (fd_in);
+}

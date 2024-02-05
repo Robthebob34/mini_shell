@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 17:02:19 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 16:06:19 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 11:20:05 by mgigot           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../inc/mini.h"
 
@@ -98,22 +98,25 @@ t_cmd   parse_next_cmd(t_main *data_base)
 }
 int	is_valid_arg(TokenType type)
 {
-	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER || OPERATOR)
+	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER || type == OPERATOR)
 		return (0);
 	else
 		return (1);
 }
 int	place_redirection(t_cmd *new_dir, t_main *data_base, int pos)
 {
+	data_base->redirection += 1;
 	if(data_base->token_array[pos].value[0] == '<')
 	{
 		new_dir->redirection_name = ft_strdup(data_base->token_array[pos + 1].value);
+		new_dir->redirection_name2 = ft_strdup(data_base->token_array[pos + 1].value);
 		new_dir->redirection = ft_strdup(data_base->token_array[pos].value);
 		new_dir->fd_in = 1;
 	}
 	if(data_base->token_array[pos].value[0] == '>')
 	{
 		new_dir->redirection_name = ft_strdup(data_base->token_array[pos + 1].value);
+		new_dir->redirection_name2 = ft_strdup(data_base->token_array[pos + 1].value);
 		new_dir->redirection = ft_strdup(data_base->token_array[pos].value);
 		new_dir->fd_out = 1;
 	}
