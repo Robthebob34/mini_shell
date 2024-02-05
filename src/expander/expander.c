@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:29:24 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/05 13:31:33 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 13:40:54 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char *replace_env_variables(const char *input)
 	i = 0;
 	cursor = 0;
 	if (input[0] == '$' && input[1] == '?')
-		return(ft_strjoin(ft_itoa(my_global.last_err_code),&input[2]));
+		return(ft_strjoin(ft_itoa(my_global.last_err_code), &input[2]));
 	while(input != NULL && input[i] != '\0')
 	{
 		if (input[i] == '$' && input[i + 1] != '\0' && input[i + 1] != ' ')
@@ -111,6 +111,3 @@ void expand_var(t_main *data_base)
 		i++;
 	}
 }
-
-
-// gerer le $? pour valeur de retour procesus fini

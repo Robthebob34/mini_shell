@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:06:54 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/05 13:12:09 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 14:29:48 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,27 +99,24 @@ const char *read_quoted_string(Lexer *lexer, char quote_type)
     char *quoted_string;
     size_t new_size;
 
-    start_position = lexer->position + 1;  // Skip the opening quote
-    lexer->position++;  // Move past the opening quote
+    start_position = lexer->position + 1;
+    lexer->position++;
     while (lexer->input[lexer->position] != '\0' && lexer->input[lexer->position] != quote_type)
         lexer->position++;
     closing_quote_position = lexer->position;
-    lexer->position++;  // Move past the closing quote
+    lexer->position++;
     quoted_string_length = closing_quote_position - start_position;
     quoted_string = malloc(quoted_string_length + 1);
     if (quoted_string != NULL)
     {
         ft_strncpy(quoted_string, lexer->input + start_position, quoted_string_length);
         quoted_string[quoted_string_length] = '\0';
-        // Check if the character after the closing quote is not a space
         while (lexer->input[lexer->position] != ' ' && lexer->input[lexer->position] != '\0')
         {
-            // Determine the new size and reallocate memory
             new_size = quoted_string_length + 1;
             quoted_string = my_realloc(quoted_string, quoted_string_length, new_size);
             if (quoted_string != NULL)
             {
-                // Append the new character to the string
                 quoted_string[quoted_string_length - 1] = lexer->input[lexer->position];
                 quoted_string[quoted_string_length] = '\0';
                 lexer->position++;
@@ -127,7 +124,6 @@ const char *read_quoted_string(Lexer *lexer, char quote_type)
             }
             else
             {
-                // Handle memory allocation error
                 free(quoted_string);
                 return NULL;
             }
