@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:06:54 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 16:06:55 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 13:12:09 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,8 @@ int find_closing_quote(Lexer *lexer, char quote_type)
     return lexer->position;
 }
 
-int	is_dollar(char *input)
-{
-	int	i;
 
-	i = 0;
-	while(input[i])
-	{
-		if (input[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int find_index(const char *input)
+int find_index_quotes(const char *input)
 {
 	int		i;
 	int		index;
@@ -48,12 +35,14 @@ int find_index(const char *input)
 				i++;
 			index = i;
 		}
+		if (input[i] == '\0')
+				break;
 		i++;
 	}
 	return (index);
 }
 
-char *replace_env_variables(const char *input)
+char *replace_env_variables_quotes(const char *input)
 {
 	int		i;
 	int		cursor;
@@ -63,7 +52,6 @@ char *replace_env_variables(const char *input)
 
 	i = 0;
 	cursor = 0;
-	printf("input :%s\n", input);
 	while(input[i])
 	{
 		if (input[i] == '$' && input[i + 1] != '\0' && input[i + 1] != ' ')
@@ -80,13 +68,15 @@ char *replace_env_variables(const char *input)
 			ft_strlcpy(var_name, begin, cursor + 1);
 			if (!getenv(var_name))
 				return ("\n");
+			if (input[i] == '\0')
+				break;
 		}
 		i++;
 	}
-	return (complete_line(length_1, input, var_name));
+	return (complete_line_quotes(length_1, input, var_name));
 }
 
-char *complete_line(int length_1, const char *input, char *var_name)
+char *complete_line_quotes(int length_1, const char *input, char *var_name)
 {
 	char *part_1;
 	char *part_2;
@@ -97,7 +87,7 @@ char *complete_line(int length_1, const char *input, char *var_name)
 	ft_memcpy(part_1, input, length_1);
 	part_1[length_1] = '\0';
 	part_2 = ft_strjoin(part_1, var);
-	return (ft_strjoin(part_2, &input[find_index(input)]));
+	return (ft_strjoin(part_2, &input[find_index_quotes(input)]));
 }
 
 
@@ -145,5 +135,5 @@ const char *read_quoted_string(Lexer *lexer, char quote_type)
     }
 	if (!is_dollar(quoted_string) || quote_type == '\'')
     	return quoted_string;
-	return replace_env_variables(quoted_string);
+	return replace_env_variables_quotes(quoted_string);
 }

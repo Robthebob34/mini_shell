@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:06:32 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 18:17:30 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/31 12:26:31 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int is_operator_char(char c)
 {
-    return (c == '|' || c == '>' || c == '<' || c == '$');
+    return (c == '|' || c == '>' || c == '<');
 }
 
 const char  *read_operator(Lexer *lexer)

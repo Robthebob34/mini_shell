@@ -43,3 +43,18 @@ cat -e file.txt
 ./minishell 
 cat -e file.txt 
 echo helo kitty
+ls
+echo $USER
+echo lol
+    ls
+ls      -l cat      Makefile 
+ls
+ls
+echo "$USER"
+echo "$USER"
+echo $USER
+echo $?
+echo $USERlol
+echo $USER lol
+echo $?
+echo $?lol

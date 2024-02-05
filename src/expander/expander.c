@@ -6,13 +6,13 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:29:24 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/30 16:20:45 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 13:31:33 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini.h"
 
-int	is_dollar(char *input)
+int	is_dollar(const char *input)
 {
 	int	i;
 
@@ -41,6 +41,8 @@ int find_index(const char *input)
 				i++;
 			index = i;
 		}
+		if (input[i] == '\0')
+				break;
 		i++;
 	}
 	return (index);
@@ -70,8 +72,9 @@ char *replace_env_variables(const char *input)
 
 	i = 0;
 	cursor = 0;
-	printf("input :%s\n", input);
-	while(input[i])
+	if (input[0] == '$' && input[1] == '?')
+		return(ft_strjoin(ft_itoa(my_global.last_err_code),&input[2]));
+	while(input != NULL && input[i] != '\0')
 	{
 		if (input[i] == '$' && input[i + 1] != '\0' && input[i + 1] != ' ')
 		{
@@ -87,6 +90,8 @@ char *replace_env_variables(const char *input)
 			ft_strlcpy(var_name, begin, cursor + 1);
 			if (!getenv(var_name))
 				return ("\n");
+			if (input[i] == '\0')
+				break;
 		}
 		i++;
 	}
@@ -101,8 +106,11 @@ void expand_var(t_main *data_base)
 	i = 0;
 	while(data_base->token_array[i].type != EOF_TOKEN)
 	{
-		if (is_dollar(data_base->token_array[i].value));
-			
+		if (is_dollar(data_base->token_array[i].value) && data_base->token_array[i].type != STRING)
+			data_base->token_array[i].value = replace_env_variables(data_base->token_array[i].value);			
 		i++;
 	}
 }
+
+
+// gerer le $? pour valeur de retour procesus fini

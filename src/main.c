@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/30 13:54:11 by rheck            ###   ########.fr       */
+/*   Updated: 2024/01/31 12:33:16 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	main(int argc, char **argv, char **env)
 			printf("token : %s, type : %u\n", data_base.token_array[i].value, data_base.token_array[i].type);
 		}
 		// END LEXER //
-
+		expand_var(&data_base);
 		// START PARSING//
 		data_base.cmds_list = parse_cmd(&data_base);
 	//	printf("%s\n", data_base.cmds_list->cmd_args[1]);
