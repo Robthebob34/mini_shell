@@ -6,7 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:07:12 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/05 11:20:18 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/06 12:45:23 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -25,5 +25,7 @@ int init_shell(char **env, t_main *data_base)
     data_base->index = 0;
     data_base->fork_index = 0;
     data_base->redirection = 0;
+    data_base->heredoc = 0;
+    data_base->pipes = 0;
     return (0);
 }

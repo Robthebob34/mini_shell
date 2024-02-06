@@ -28,11 +28,16 @@ int	pipe_wait(int *pid, int amount)
 }
 void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in)
 {
-	if (tools->fork_index > 0 && dup2(fd_in, 0) < 0)
+	if (tools->fork_index > 0 && (dup2(fd_in, 0) < 0))
+	{
+		printf("je suis premier\n");
 		ft_error(4, tools);
+	}
 	close(end[0]);
 	if (tools->fork_index < tools->pipes && dup2(end[1], 1) < 0)
+	{
 		ft_error(4, tools);
+	}
 	close(end[1]);
 	if (tools->fork_index > 0)
 		close(fd_in);
@@ -64,6 +69,8 @@ int	find_cmd(t_cmd *cmd, t_main *tools, int cmd_nb)
 
 	i = 0;
 	//cmd->str = resplit_str(cmd->str);
+	if(cmd[cmd_nb].cmd_name[0] == '|')
+		cmd_nb++;
 	path_exec = ft_split(tools->env_path, ':');
 	if (!access(cmd[cmd_nb].cmd_name, F_OK))
 		execve(cmd[cmd_nb].cmd_name, cmd[cmd_nb].cmd_args, tools->env_tab);

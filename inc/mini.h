@@ -6,7 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/05 11:59:14 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/06 10:05:25 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -158,6 +158,8 @@ int	send_heredoc(t_main *tools, t_cmd *cmd);
 void	single_cmd(t_cmd *cmd, t_main *tools);
 void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in);
 void	handle_cmd(t_cmd *cmd, t_main *tools, int cmd_nb);
+int		handle_infile(char *file);
+int	handle_outfile(t_cmd *redirection);
 int	find_cmd(t_cmd *cmd, t_main *tools, int cmd_nb);
 
 // exec utils 

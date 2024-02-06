@@ -45,7 +45,6 @@ src	=	src/main.c \
 		src/exec/heredoc.c \
 		src/exec/new_dir.c \
 		src/exec/single_cmd.c \
-		src/utils/ft_split.c \
 		src/utils/get_next_line.c \
 		src/parser/parser.c \
 		src/utils/utils.c \

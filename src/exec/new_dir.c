@@ -13,7 +13,7 @@ int	check_redirections(t_cmd *cmd)
 		}
 		else if (cmd[i].redirection && cmd[i].redirection[0] == '>')
 		{
-			if (handle_outfile(cmd->redirection))
+			if (handle_outfile(cmd + i))
 				return (1);
 		}
 		else if (cmd[i].redirection && cmd[i].redirection[0] == '<' && cmd[i].redirection[1] == '<')
@@ -29,11 +29,11 @@ int	check_append_outfile(t_cmd *redirections)
 {
 	int	fd;
 
-	if (redirections->token == GREAT_GREAT)
-		fd = open(redirections->str,
+	if (ft_strncmp(redirections[0].redirection, ">>", 2))
+		fd = open(redirections[0].redirection_name,
 				O_CREAT | O_RDWR | O_APPEND, 0644);
 	else
-		fd = open(redirections->str,
+		fd = open(redirections[0].redirection_name,
 				O_CREAT | O_RDWR | O_TRUNC, 0644);
 	return (fd);
 }
@@ -46,17 +46,17 @@ int	handle_infile(char *file)
 	if (fd < 0)
 	{
 		ft_putstr_fd("minishell: infile: No such file or directory\n",
-			STDERR_FILENO);
-		return (EXIT_FAILURE);
+			2);
+		return (1);
 	}
-	if (fd > 0 && dup2(fd, STDIN_FILENO) < 0)
+	if (fd > 0 && dup2(fd, 0) < 0)
 	{
-		ft_putstr_fd("minishell: pipe error\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		ft_putstr_fd("minishell: pipe error\n", 2);
+		return (1);
 	}
 	if (fd > 0)
 		close(fd);
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 int	handle_outfile(t_cmd *redirection)
@@ -66,15 +66,15 @@ int	handle_outfile(t_cmd *redirection)
 	fd = check_append_outfile(redirection);
 	if (fd < 0)
 	{
-		ft_putstr_fd("minishell: outfile: Error\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		ft_putstr_fd("minishell: outfile: Error\n", 2);
+		return (1);
 	}
 	if (fd > 0 && dup2(fd, STDOUT_FILENO) < 0)
 	{
-		ft_putstr_fd("minishell: pipe error\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		ft_putstr_fd("minishell: pipe error\n", 2);
+		return (1);
 	}
 	if (fd > 0)
 		close(fd);
-	return (EXIT_SUCCESS);
+	return (1);
 }

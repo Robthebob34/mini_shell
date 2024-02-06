@@ -32,7 +32,7 @@ int	ft_heredoc(t_main *tools, t_cmd *cmd_list, char *file_name)
 	int		sl;
 
 	sl = 0;
-	if ((cmd_list->redirection_name2[0] == '\"'
+	if ((cmd_list[0].redirection_name2[0] == '\"'
 			&& cmd_list->redirection_name2[ft_strlen(cmd_list->redirection_name2) - 1] == '\"')
 		|| (cmd_list->redirection_name2[0] == '\''
 			&& cmd_list->redirection_name2[ft_strlen(cmd_list->redirection_name2) - 1] == '\''))
@@ -72,10 +72,11 @@ int	send_heredoc(t_main *tools, t_cmd *cmd)
 	{	
 		if (ft_strncmp(cmd[i].redirection, "<<", 2) == 0)
 		{
+			printf("non pas ici !!\n");
 			if (cmd[i].redirection_name)
 				free(cmd[i].redirection_name);
 			cmd[i].redirection_name = generate_heredoc_filename();
-			sl = ft_heredoc(tools, cmd[i].redirection, cmd[i].redirection_name);
+			sl = ft_heredoc(tools, cmd + i, cmd[i].redirection_name);
 			if (sl)
 			{
 				my_global.last_err_code = 1;

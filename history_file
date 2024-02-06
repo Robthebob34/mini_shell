@@ -17,3 +17,69 @@ ls -l
 ls -la
 pwd
 exit
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls -l
+ls -la
+cat << fin
+ls
+ls
+pwd
+ls
+exit
+exit
+exit
+exit
+exit
+exi
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+ls
+ls
+ls | echo
+exit
+
+ls | grep "my"
+ls | grep "my"
+ls | grep "my"
+ls | grep "my"
+ls | grep "my"
+ls
+ls | grep "Make"
+ls | grep "Make"
+ls
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls
+ls
+ls | grep "Make"
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+ls
+exit
