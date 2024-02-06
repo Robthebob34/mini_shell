@@ -66,3 +66,97 @@ echo '$USER'
 env
 /bin/ls
 echo $?
+echo "$USER"
+echo $USER
+echo $?
+echo $USER$USER
+echo $USER$USE
+echo $USER$USER
+echo "lol" ici $USER
+echo lol ici 
+echo $USER$USER
+echo $USER$USER
+echo $USER
+echo $USER$USER
+echo $USERlol
+ls
+ls -l
+pw
+pwd
+ls
+cd src/
+cd ..
+pwd
+cd ..
+cd src/
+clear
+clear
+
+clear
+
+yes
+yes
+clear
+
+
+
+echo "   Yoooo $USER lol $USER"
+echo "$USER"
+echo "$USER $USER"
+echo "frgt $USER vjsrgf $USER dfogri"
+echo "$USER $USER"
+echo "$USER $USER"
+echo "$USER grgrg $USER"
+echo "$USER grgrg $USER rgrg "
+echo "$USER grgrg $USER rgrg"
+echo "$USER grgrg $USER "
+echo "$USER grgrg $USER"
+echo "egrgr$USER grgrg $USER"
+echo "egrgr $USER grgrg $USER"
+echo "egrgr $USER grgrg $USER "
+echo "egrgr $USER grgrg $USER"
+echo "egrgr $USER grgrg $USER "
+echo $USER$USER
+echo "egrgr $USER grgrg $USER rgdgg $USER"
+echo "egrgr $USER grgrg $USER rgdgg $USER "
+
+echo "re $USER re $USER"
+echo "re $USER re $USER "
+echo "$USER"
+echo "re $USER re $USER"
+echo "re $USER re $USER "
+make
+echo "re $USER re $USER "
+echo "$USER"
+echo "$USER $USER"
+echo "$USER $USER "
+echo "$USER $USERd"
+echo "$USER $USER"
+echo "$USER $USER "
+echo "$USER $USERd"
+echo "    $USER $USER"
+echo " rgrgt   $USER erhtrhyr $USER"
+echo " rgrgt   $USER erhtrhyr $USER rgtg"
+echo "$USER $USER"
+echo "$USER $USER gr"
+echo "$USER $USER grkgvu"
+echo "$USER $USER grkgvuljguyfuf"
+echo "$USER $USER"
+echo "$USER $USER "
+echo "$USER $USER"
+echo "$USER $USER "
+echo "$USER $USER"
+echo "$USER $USER "
+echo "$USER "
+echo "$USER $USER "
+echo "$USER $USER"
+echo "$USER $USER "
+echo "$USER $USER"
+echo "$USER $USER "
+echo "$USER $USER"
+echo "$USER $USER "
+echo "$USER $USER "
+echo"$USER $USER "
+echo "$USER $USER "
+echo "$USER $USER"
+echo "$USER $USER "

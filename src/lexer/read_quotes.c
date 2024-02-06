@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:06:54 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/05 14:36:14 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/06 14:01:38 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char *replace_env_variables_quotes(const char *input)
 
 	i = 0;
 	cursor = 0;
+	printf("1\n");
 	while(input[i])
 	{
 		if (input[i] == '$' && input[i + 1] != '\0' && input[i + 1] != ' ')
@@ -59,15 +60,25 @@ char *replace_env_variables_quotes(const char *input)
 			begin = &input[i + 1];
 			length_1 = i;
 			i++;
-			while(input[i] != '\0' && input[i] != ' ')
+			while(input[i] != '\0' && input[i] != ' ' && input[i] != '$')
 			{
 				cursor++;
 				i++;
 			}
+			printf("2\n");
 			var_name = malloc(sizeof(char) * (cursor + 1));
+			printf("3\n");
 			ft_strlcpy(var_name, begin, cursor + 1);
-			if (!getenv(var_name))
+			printf("4\n");
+			printf("var name : %s\n", var_name);
+			printf("input index : %d\n", i);
+			printf("length : %zu\n", ft_strlen(var_name));
+			printf("get_env : %s\n", getenv(var_name));
+			if (!getenv(var_name)){
+				printf("ENTERED\n");
 				return ("\n");
+				}
+			printf("5\n");
 			if (input[i] == '\0')
 				break;
 		}
@@ -81,7 +92,6 @@ char *complete_line_quotes(int length_1, const char *input, char *var_name)
 	char	*part_1;
 	char	*part_2;
 	char	*var;
-	char	*result;
 
 	var = getenv(var_name);
 	part_1 = malloc(sizeof(char) * (length_1 + 1));

@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:29:24 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/05 13:40:54 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/06 11:53:34 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char *replace_env_variables(const char *input)
 			begin = &input[i + 1];
 			length_1 = i;
 			i++;
-			while(input[i] != '\0' && input[i] != ' ')
+			while(input[i] != '\0' && input[i] != ' ' && input[i] != '$')
 			{
 				cursor++;
 				i++;
@@ -102,6 +102,7 @@ char *replace_env_variables(const char *input)
 void expand_var(t_main *data_base)
 {
 	int i;
+	int	j;
 	
 	i = 0;
 	while(data_base->token_array[i].type != EOF_TOKEN)
@@ -109,5 +110,12 @@ void expand_var(t_main *data_base)
 		if (is_dollar(data_base->token_array[i].value) && data_base->token_array[i].type != STRING)
 			data_base->token_array[i].value = replace_env_variables(data_base->token_array[i].value);			
 		i++;
+	}
+	j = 0;
+	while(data_base->token_array[j].type != EOF_TOKEN)
+	{
+		while(is_dollar(data_base->token_array[j].value))
+			data_base->token_array[j].value = replace_env_variables(data_base->token_array[j].value);
+		j++;
 	}
 }

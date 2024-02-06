@@ -56,7 +56,7 @@ int	back_on_path(t_main *tools, t_cmd *simple_cmd)
 		i--;
 	tmp = malloc(sizeof(char) * i + 1);
 	ft_memcpy(tmp, tools->pwd, i);
-	tmp[i + 1] = '\0';
+	tmp[i] = '\0';
 	ret = chdir(tmp);
 	if(ret != 0)
 		printf("fail parsing back on path\n");

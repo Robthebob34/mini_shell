@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:39 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/31 12:33:16 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/06 11:12:52 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,7 @@ int	execute(char **env, t_main *data_base)
 	waitpid(data_base->pid1, NULL, 0);
 	return (errcode);
 }
-//fait marcher la commande "history" mais je ne pense pas que l'on puisse utiliser la fonction history_get
-int	print_history(void)
-{
-	int	i;
 
-	i = 1;
-	HIST_ENTRY *historyList = NULL;
-	historyList = history_get(i);
-	while(historyList)
-	{
-		historyList = history_get(i);
-		if (!historyList)
-			break;
-    	printf("%s\n", historyList->line);
-		i++;
-	}
-	return(0);
-}
 int	count_token(Lexer *lexer, char *prompt)
 {
 	int	result;
@@ -76,7 +59,6 @@ int	count_token(Lexer *lexer, char *prompt)
 	int i = 0;
 	while(token_count.type != EOF_TOKEN)
 	{
-		printf("i : %d\n", i);
 		token_count = get_next_token(lexer);
 		printf("type : %d   value : %s\n", token_count.type, token_count.value);
 		result++;
@@ -107,7 +89,6 @@ int	main(int argc, char **argv, char **env)
 		//START LEXER //
 
 		data_base.token_array = malloc(sizeof(Token) * count_token(&lexer, data_base.my_prompt_line) + 1);
-		printf("yo\n");
 		init_lexer(&lexer, data_base.my_prompt_line);
 		data_base.token_array[i] = get_next_token(&lexer);
 		while (data_base.token_array[i].type != 5)
