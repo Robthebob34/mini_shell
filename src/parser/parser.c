@@ -6,7 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 17:02:19 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/06 12:48:35 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/07 12:39:04 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,7 +19,7 @@ t_cmd	*parse_cmd(t_main *data_base)
 	int	i = 0;
 	data_base->pipes = count_pipe(data_base->token_array);
 	printf("pipes 2 = %d\n", data_base->pipes);
-	cmd_line = malloc(sizeof(t_cmd) * (data_base->pipes + 2));
+	cmd_line = malloc(sizeof(t_cmd) * ((data_base->pipes * 2) + 2));
 	cmd_line[i] = parse_next_cmd(data_base);
 	printf("cmd name %s\n", cmd_line[i].cmd_name);
 	while(cmd_line[i].cmd_name != NULL)
@@ -74,6 +74,8 @@ t_cmd   parse_next_cmd(t_main *data_base)
 		ret.cmd_name = ft_strdup("|");
 		place_redirection(&ret, data_base, data_base->index);
 		data_base->index++;
+		printf("index arg : j = %d\n", j);
+		printf("index data_base = %d\n", data_base->index);
 		return(ret);
 	}
 	ret_tab = malloc(sizeof(char *) * (count_arg + 1));
@@ -96,12 +98,13 @@ t_cmd   parse_next_cmd(t_main *data_base)
 		}
     }
 	j++;
-	printf("j = %d\n", j);
+	printf("index arg : j = %d\n", j);
+	printf("index data_base = %d\n", data_base->index);
 	ret_tab[j] = NULL;
-	// for(int x = 0; ret_tab[x] != NULL; x++)
-	// {
-	// 	printf("%s\n", ret_tab[x]);
-	// }
+	for(int x = 0; ret_tab[x] != NULL; x++)
+	{
+		printf("args = %s\n", ret_tab[x]);
+	}
 	ret.cmd_name = ft_strdup(ret_tab[0]); 
 	ret.cmd_args = ret_tab;
 	//free ret_tab ?? 
@@ -110,7 +113,7 @@ t_cmd   parse_next_cmd(t_main *data_base)
 }
 int	is_valid_arg(TokenType type)
 {
-	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER || type == OPERATOR)
+	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER || type == OPERATOR || type == ARGUMENT)
 		return (0);
 	else
 		return (1);

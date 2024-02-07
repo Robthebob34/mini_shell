@@ -1,9 +1,10 @@
 #include "../../inc/mini.h"
 int	ft_fork(t_main *data_base, int end[2], int fd_in, t_cmd *cmd)
 {
+	printf("fork index = %d\n", data_base->fork_index);
 	data_base->pid[data_base->fork_index] = fork();
 	if (data_base->pid[data_base->fork_index] < 0)
-		return(1); // return erreur creation de processus 
+		ft_error(5, data_base);
 	if (data_base->pid[data_base->fork_index] == 0)
 		dup_cmd(cmd, data_base, end, fd_in);
 	data_base->fork_index++;
@@ -16,6 +17,7 @@ int	pipe_wait(int *pid, int amount)
 	int	status;
 
 	i = 0;
+	printf("je suis ICI\n");
 	while (i < amount)
 	{
 		waitpid(pid[i], &status, 0);
@@ -28,6 +30,9 @@ int	pipe_wait(int *pid, int amount)
 }
 void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in)
 {
+	static int i = 0;
+	printf("my statique i = %d\n", i);
+	printf("my fd_in = %d \n", fd_in);
 	if (tools->fork_index > 0 && (dup2(fd_in, 0) < 0))
 	{
 		printf("je suis premier\n");
@@ -71,7 +76,9 @@ int	find_cmd(t_cmd *cmd, t_main *tools, int cmd_nb)
 	//cmd->str = resplit_str(cmd->str);
 	if(cmd[cmd_nb].cmd_name[0] == '|')
 		cmd_nb++;
-	path_exec = ft_split(tools->env_path, ':');
+	write(1, cmd[cmd_nb].cmd_name, ft_strlen(cmd[cmd_nb].cmd_name));
+	write(1, "\n", 1);
+	path_exec = ft_split(tools->env_path, ':'); // a changer avec notre variable d'environnement
 	if (!access(cmd[cmd_nb].cmd_name, F_OK))
 		execve(cmd[cmd_nb].cmd_name, cmd[cmd_nb].cmd_args, tools->env_tab);
 	while (path_exec[i])

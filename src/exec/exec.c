@@ -6,7 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:22 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/06 12:47:14 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/07 12:26:17 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -64,6 +64,7 @@ int	prepare_execute(t_main *data_base)
 		single_cmd(data_base->cmds_list, data_base);
 	else
 	{
+		printf("nombre de processus = %i\n", data_base->pipes + 2);
 		data_base->pid = ft_calloc(sizeof(int), data_base->pipes + 2);
 		if (!data_base->pid)
 			return (1); // ft_error();
@@ -82,10 +83,12 @@ int	execute(t_main *data_base, t_cmd *cmd_list)
 	i = 0;
 	while (cmd_list[i].cmd_name != NULL)
 	{
+		printf("un dos tress\n");
 		if (cmd_list[i].cmd_name[0] == '|')
 			i++;
 		if (cmd_list[i + 1].cmd_name)
 		{
+			printf("cmd name exec = %s\n", cmd_list[i].cmd_name);
 			pipe(end);
 		}
 		if(send_heredoc(data_base, cmd_list))

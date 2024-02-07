@@ -70,7 +70,7 @@ int my_cd(t_main *tools, t_cmd *simple_cmd)
 	{
 		ret = specific_path(tools, "HOME=");
 	}
-	else if (ft_strncmp(simple_cmd->cmd_args[1], "..", 2) == 0)
+	else if (ft_strncmp(simple_cmd->cmd_args[1], "..", 2) == 0 && simple_cmd->cmd_args[1][2] == '\0')
 	{
 		ret = back_on_path(tools, simple_cmd);
 	}

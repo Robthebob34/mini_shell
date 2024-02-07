@@ -83,3 +83,60 @@ exit
 exit
 ls
 exit
+exit
+cat < Makefile 
+echo "bonjout" > test1
+ls
+ls
+ls
+pwd
+grep "Makefile" | cat
+grep "Makefile" | cat
+grep "Makefile" | cat
+grep "Makefile" | cat
+grep "Makefile" | cat
+cat | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls -l | grep "Make"
+ls -l -a | grep "Make"
+pwd
+pwd 
+ls -la | grep a | tr 'a-z' 'A-Z'
+pwd
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la
+ls -la | grep a
+ls -la | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+grep "Make"
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls | tr 'a-z' 'A-Z'
+ls | tr 'a-z' 'A-Z' | grep a
+ps aux | sort -nrk 4 | head -10
+
+cat Makefile | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -3
+
