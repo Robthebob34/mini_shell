@@ -1,14 +1,18 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:39 by rheck             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/06 11:12:52 by rheck            ###   ########.fr       */
+=======
+/*   Updated: 2024/02/07 11:06:01 by mgigot           ###   ########.fr       */
+>>>>>>> ccbebe2dc1930d6da0d904b52f375375cb70e063
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../inc/mini.h"
 
@@ -24,13 +28,8 @@ int	my_header(void)
 	printf("        |___/                      \n");
 	return(0);
 }
-// permet d'executer depuis l'entre utilisateur des commandes simple sans arguments
-int	execute(char **env, t_main *data_base)
-{
-	int errcode;
-	char *cmd;
-	char **cmd_path;
 
+<<<<<<< HEAD
 	errcode = 0;
 	cmd_path = ft_split(data_base->env_path, ':');
 	cmd = get_cmd(cmd_path, data_base, data_base->cmds_list);
@@ -47,6 +46,12 @@ int	execute(char **env, t_main *data_base)
 	waitpid(data_base->pid1, NULL, 0);
 	return (errcode);
 }
+=======
+//fait marcher la commande "history" mais je ne pense pas que l'on puisse utiliser la fonction history_get
+int	print_history(void)
+{
+	int	i;
+>>>>>>> ccbebe2dc1930d6da0d904b52f375375cb70e063
 
 int	count_token(Lexer *lexer, char *prompt)
 {
@@ -69,6 +74,10 @@ int	count_token(Lexer *lexer, char *prompt)
 int	reset_data_base(t_main *data_base)
 {
 	data_base->index = 0;
+	data_base->fork_index = 0;
+	data_base->redirection = 0;
+	data_base->heredoc = 0;
+	data_base->pipes = 0;
 	return(0);
 }
 int	main(int argc, char **argv, char **env)
@@ -101,7 +110,6 @@ int	main(int argc, char **argv, char **env)
 		expand_var(&data_base);
 		// START PARSING//
 		data_base.cmds_list = parse_cmd(&data_base);
-	//	printf("%s\n", data_base.cmds_list->cmd_args[1]);
 		// END PARSING //
 		super_history(data_base.my_prompt_line);
 		data_base.env_path = find_env_variable(data_base.env_tab, "PATH");
@@ -109,7 +117,7 @@ int	main(int argc, char **argv, char **env)
 
 		// EXECUTION //
 
-		execute(env, &data_base);
+		prepare_execute(&data_base);
 		if (data_base.my_prompt_line)
 			free (data_base.my_prompt_line);
 		reset_data_base(&data_base);

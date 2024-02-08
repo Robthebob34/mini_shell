@@ -12,6 +12,7 @@ ls -la
 pwd
 minishell
 minishell
+<<<<<<< HEAD
 ./minishell 
 ./minishell 
 exit
@@ -160,3 +161,145 @@ echo"$USER $USER "
 echo "$USER $USER "
 echo "$USER $USER"
 echo "$USER $USER "
+=======
+ls
+ls -l
+ls -la
+pwd
+exit
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls -l
+ls -la
+cat << fin
+ls
+ls
+pwd
+ls
+exit
+exit
+exit
+exit
+exit
+exi
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+ls
+ls
+ls | echo
+exit
+
+ls | grep "my"
+ls | grep "my"
+ls | grep "my"
+ls | grep "my"
+ls | grep "my"
+ls
+ls | grep "Make"
+ls | grep "Make"
+ls
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls
+ls
+ls | grep "Make"
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+ls
+exit
+exit
+cat < Makefile 
+echo "bonjout" > test1
+ls
+ls
+ls
+pwd
+grep "Makefile" | cat
+grep "Makefile" | cat
+grep "Makefile" | cat
+grep "Makefile" | cat
+grep "Makefile" | cat
+cat | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls | grep "Make"
+ls -l | grep "Make"
+ls -l -a | grep "Make"
+pwd
+pwd 
+ls -la | grep a | tr 'a-z' 'A-Z'
+pwd
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la
+ls -la | grep a
+ls -la | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+grep "Make"
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls | tr 'a-z' 'A-Z'
+ls | tr 'a-z' 'A-Z' | grep a
+ps aux | sort -nrk 4 | head -10
+
+cat Makefile | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -3
+
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+cat << FIN
+cat << FIN
+cat << FIN
+cat << fin
+cat << fin
+cat << fin
+>>>>>>> ccbebe2dc1930d6da0d904b52f375375cb70e063

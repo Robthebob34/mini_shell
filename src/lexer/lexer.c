@@ -73,7 +73,10 @@ Token get_next_token(Lexer *lexer)
 	{
         value = read_operator(lexer);
         if (ft_strncmp(value, "|", 1) == 0)
+        {
             lexer->is_cmd = 1;
+            return (create_token(PIPE, value));
+        }
         return create_token(OPERATOR, value);
     }
     else
