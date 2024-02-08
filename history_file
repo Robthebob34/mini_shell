@@ -140,3 +140,15 @@ ps aux | sort -nrk 4 | head -10
 
 cat Makefile | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -3
 
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+ls -la | grep a | tr 'a-z' 'A-Z'
+cat << FIN
+cat << FIN
+cat << FIN
+cat << fin
+cat << fin
+cat << fin

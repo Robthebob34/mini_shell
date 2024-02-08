@@ -14,7 +14,7 @@ void	single_cmd(t_cmd *cmd, t_main *tools)
 	if (pid < 0)
 		return; // erreur creation des processus 
 	if (pid == 0)
-		handle_cmd(cmd, tools, 0);
+		handle_cmd(cmd, tools);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		my_global.last_err_code = WEXITSTATUS(status);
@@ -23,6 +23,7 @@ int	check_fd_heredoc(t_main *tools, int end[2], t_cmd cmd) // attention derefere
 {
 	int	fd_in;
 
+	printf("heredoc = %i\n", tools->heredoc);
 	if (tools->heredoc)
 	{
 		close(end[0]);

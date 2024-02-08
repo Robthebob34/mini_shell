@@ -35,7 +35,6 @@ void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in)
 	printf("my fd_in = %d \n", fd_in);
 	if (tools->fork_index > 0 && (dup2(fd_in, 0) < 0))
 	{
-		printf("je suis premier\n");
 		ft_error(4, tools);
 	}
 	close(end[0]);
@@ -46,26 +45,31 @@ void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in)
 	close(end[1]);
 	if (tools->fork_index > 0)
 		close(fd_in);
-	handle_cmd(cmd, tools, tools->fork_index);
+	printf("end 0 = %i\n", end[0]);
+	printf("end 1 = %i\n", end[1]);
+	handle_cmd(cmd, tools);
 }
-void	handle_cmd(t_cmd *cmd, t_main *tools, int cmd_nb)
+void	handle_cmd(t_cmd *cmd, t_main *tools)
 {
 	int	exit_code;
 
 	exit_code = 0;
 	if (tools->redirection > 0)
+	{
 		if (check_redirections(cmd))
 			exit(1);
+		printf("yo\n");
+	}
 	if ((cmd->builtin = look_for_builtin(tools->cmds_list->cmd_name)))
 	{
 		exit_code = cmd->builtin(tools, cmd);
 		exit(exit_code);
 	}
 	else if (cmd->cmd_args[0][0] != '\0')
-		exit_code = find_cmd(cmd, tools, cmd_nb);
+		exit_code = find_cmd(cmd, tools);
 	exit(exit_code);
 }
-int	find_cmd(t_cmd *cmd, t_main *tools, int cmd_nb)
+int	find_cmd(t_cmd *cmd, t_main *tools)
 {
 	int		i;
 	char	**path_exec;
@@ -73,23 +77,20 @@ int	find_cmd(t_cmd *cmd, t_main *tools, int cmd_nb)
 	char	*mycmd;
 
 	i = 0;
-	//cmd->str = resplit_str(cmd->str);
-	if(cmd[cmd_nb].cmd_name[0] == '|')
-		cmd_nb++;
-	write(1, cmd[cmd_nb].cmd_name, ft_strlen(cmd[cmd_nb].cmd_name));
+	write(1, cmd[0].cmd_name, ft_strlen(cmd[0].cmd_name));
 	write(1, "\n", 1);
 	path_exec = ft_split(tools->env_path, ':'); // a changer avec notre variable d'environnement
-	if (!access(cmd[cmd_nb].cmd_name, F_OK))
-		execve(cmd[cmd_nb].cmd_name, cmd[cmd_nb].cmd_args, tools->env_tab);
+	if (!access(cmd[0].cmd_name, F_OK))
+		execve(cmd[0].cmd_name, cmd[0].cmd_args, tools->env_tab);
 	while (path_exec[i])
 	{
 		tmp = ft_strjoin(path_exec[i], "/");
-		mycmd = ft_strjoin(tmp, cmd[cmd_nb].cmd_name);
+		mycmd = ft_strjoin(tmp, cmd[0].cmd_name);
 		free(tmp);
 		if (!access(mycmd, F_OK))
-			execve(mycmd, cmd[cmd_nb].cmd_args, tools->env_tab);
+			execve(mycmd, cmd[0].cmd_args, tools->env_tab);
 		free(mycmd);
 		i++;
 	}
-	return (cmd_not_found(cmd[cmd_nb].cmd_name));
+	return (cmd_not_found(cmd[0].cmd_name));
 }

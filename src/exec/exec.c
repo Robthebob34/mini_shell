@@ -6,7 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:22 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/07 12:26:17 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/08 12:21:16 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -93,7 +93,7 @@ int	execute(t_main *data_base, t_cmd *cmd_list)
 		}
 		if(send_heredoc(data_base, cmd_list))
 			return(1);
-		ft_fork(data_base, end, fd_in, cmd_list);
+		ft_fork(data_base, end, fd_in, cmd_list + i);
 		close(end[1]);
 		if (i > 0)
 			close(fd_in);

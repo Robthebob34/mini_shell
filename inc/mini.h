@@ -6,7 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/06 10:05:25 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/08 11:14:19 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -157,10 +157,10 @@ int	prepare_execute(t_main *data_base);
 int	send_heredoc(t_main *tools, t_cmd *cmd);
 void	single_cmd(t_cmd *cmd, t_main *tools);
 void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in);
-void	handle_cmd(t_cmd *cmd, t_main *tools, int cmd_nb);
+void	handle_cmd(t_cmd *cmd, t_main *tools);
 int		handle_infile(char *file);
 int	handle_outfile(t_cmd *redirection);
-int	find_cmd(t_cmd *cmd, t_main *tools, int cmd_nb);
+int	find_cmd(t_cmd *cmd, t_main *tools);
 
 // exec utils 
 int	ft_fork(t_main *data_base, int end[2], int fd_in, t_cmd *cmd);
