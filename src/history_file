@@ -1,0 +1,8 @@
+clear
+exit
+pwd
+cd ..
+pwd
+cd
+pwd
+clear

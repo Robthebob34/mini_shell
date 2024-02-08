@@ -6,7 +6,7 @@
 /*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:55 by rheck             #+#    #+#             */
-/*   Updated: 2024/01/29 18:47:43 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/05 13:31:58 by rheck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "get_next_line.h"
-# include </Users/rheck/.brew/Cellar/readline/8.2.7/include/readline/readline.h>
-# include </Users/rheck/.brew/Cellar/readline/8.2.7/include/readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum {
     IDENTIFIER,
@@ -165,5 +165,9 @@ int			ft_isalnum(char c);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 void		*my_realloc(void *ptr, size_t old_size, size_t new_size);
 char		*complete_line(int length_1, const char *input, char *var_name);
-
+void		expand_var(t_main *data_base);
+int			is_dollar(const char *input);
+char		*replace_env_variables(const char *input);
+char		*complete_line_quotes(int length_1, const char *input, char *var_name);
+char		*ft_itoa(int n);
 #endif

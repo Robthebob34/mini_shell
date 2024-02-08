@@ -44,15 +44,36 @@ int	specific_path(t_main *tools, char *str)
 	}
 	return(ret);
 }
+int	back_on_path(t_main *tools, t_cmd *simple_cmd)
+{
+	char 	*tmp;
+	int		ret;
+	int		i;
+	//attention au cas ou l'utilisateur se trouve deja a la racine de l'orgdinateur ('/')
+	(void)simple_cmd;
+	i = ft_strlen(tools->pwd);
+	while(tools->pwd[i] != '/')
+		i--;
+	tmp = malloc(sizeof(char) * i + 1);
+	ft_memcpy(tmp, tools->pwd, i);
+	tmp[i] = '\0';
+	ret = chdir(tmp);
+	if(ret != 0)
+		printf("fail parsing back on path\n");
+	return(ret);
+}
 int my_cd(t_main *tools, t_cmd *simple_cmd)
 {
 	int	ret;
-	// segfault a cause de cmd_args non initialiser 
+
 	if(!simple_cmd->cmd_args[1])
 	{
 		ret = specific_path(tools, "HOME=");
 	}
-	// else if (volonter de l'utilisateur de revenir a old_pwd)
+	else if (ft_strncmp(simple_cmd->cmd_args[1], "..", 2) == 0)
+	{
+		ret = back_on_path(tools, simple_cmd);
+	}
 	else
 	{	
 		if(((ret) = chdir(simple_cmd->cmd_args[1])))

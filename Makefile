@@ -45,6 +45,7 @@ src	=	src/main.c \
 		src/utils/get_next_line.c \
 		src/parser/parser.c \
 		src/utils/utils.c \
+		src/expander/expander.c
 
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
