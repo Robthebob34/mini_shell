@@ -2,9 +2,11 @@
 
 void	print_lines(int i, char **str, int out)
 {
+	printf("je passe ici wlh\n");
 	while (str[i])
 	{
-		ft_putstr_fd(str[i++], out);
+		ft_putstr_fd(str[i], out);
+		i++;
 		if (str[i])
 			ft_putchar_fd(' ' , out);
 	}
@@ -30,7 +32,7 @@ int	my_echo(t_main *tools, t_cmd *simple_cmd)
 			break ;
 		i++;
 	}
-	print_lines(i, simple_cmd->cmd_args, 1);
+	print_lines(i, simple_cmd->cmd_args, STDOUT_FILENO);
 	if (n_option == false)
 		ft_putchar_fd('\n', 1);
 	return (0);

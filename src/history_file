@@ -6,3 +6,7 @@ pwd
 cd
 pwd
 clear
+ls
+cd ..
+pwd
+cd ../../

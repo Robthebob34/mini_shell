@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:29:24 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/06 11:53:34 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/09 12:03:48 by mgigot           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../inc/mini.h"
 
@@ -117,5 +117,12 @@ void expand_var(t_main *data_base)
 		while(is_dollar(data_base->token_array[j].value))
 			data_base->token_array[j].value = replace_env_variables(data_base->token_array[j].value);
 		j++;
+	}
+	i = 0;
+	while(data_base->token_array[i].type != EOF_TOKEN)
+	{
+		printf("value after expand = %s\n", data_base->token_array[i].value);
+		printf("type after expand = %d\n", data_base->token_array[i].type);
+		i++;
 	}
 }
