@@ -72,7 +72,6 @@ int	send_heredoc(t_main *tools, t_cmd *cmd)
 	{	
 		if (ft_strncmp(cmd[i].redirection, "<<", 2) == 0)
 		{
-			printf("non pas ici !!\n");
 			if (cmd[i].redirection_name)
 				free(cmd[i].redirection_name);
 			cmd[i].redirection_name = generate_heredoc_filename();

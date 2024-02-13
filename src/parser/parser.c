@@ -6,7 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 17:02:19 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/12 11:25:06 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/13 12:02:42 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -74,8 +74,6 @@ t_cmd   parse_next_cmd(t_main *data_base)
 		ret.cmd_name = ft_strdup("|");
 		place_redirection(&ret, data_base, data_base->index);
 		data_base->index++;
-		printf("index arg : j = %d\n", j);
-		printf("index data_base = %d\n", data_base->index);
 		return(ret);
 	}
 	ret_tab = malloc(sizeof(char *) * (count_arg + 1));
@@ -95,23 +93,14 @@ t_cmd   parse_next_cmd(t_main *data_base)
         {
 			data_base->index = place_redirection(&ret, data_base, data_base->index);
 			if(ret.fd_out == 1)
-			{
-				printf("alors peut etre\n");
 				break;
-			}
         	j++;
             ret_tab[j] = ft_strdup(data_base->token_array[data_base->index].value);
 			data_base->index++;
 		}
     }
 	j++;
-	printf("index arg : j = %d\n", j);
-	printf("index data_base = %d\n", data_base->index);
 	ret_tab[j] = NULL;
-	for(int x = 0; ret_tab[x] != NULL; x++)
-	{
-		printf("args = %s\n", ret_tab[x]);
-	}
 	ret.cmd_name = ft_strdup(ret_tab[0]); 
 	ret.cmd_args = ret_tab;
 	//free ret_tab ?? 
@@ -127,9 +116,6 @@ int	is_valid_arg(TokenType type)
 }
 int	place_redirection(t_cmd *new_dir, t_main *data_base, int pos)
 {
-	int	tmp;
-
-	tmp = pos;
 	if(data_base->token_array[data_base->index].type == OPERATOR)
 	{
 		data_base->redirection += 1;
