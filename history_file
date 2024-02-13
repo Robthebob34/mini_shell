@@ -391,3 +391,9 @@ cat "history_file" | grep "history" > new_file
 cat 
 cat "history_file" | grep "history" > new_file
 cat "history_file" | grep "history" > new_file
+ls
+cool
+clear
+yes
+ls
+ls -la
