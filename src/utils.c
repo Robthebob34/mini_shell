@@ -6,24 +6,11 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:54:46 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/06 10:15:22 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/13 11:40:28 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../inc/mini.h"
-
-// int	ft_strncmp(const char *s1, const char *s2, size_t n)
-// {
-// 	while ((*s1 != '\0' || *s2 != '\0') && n > 0)
-// 	{
-// 		if (*s1 != *s2)
-// 			return ((unsigned char)*s1 - (unsigned char)*s2);
-// 		s1++;
-// 		s2++;
-// 		n--;
-// 	}
-// 	return (0);
-// }
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

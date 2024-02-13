@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   read_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rheck <rheck@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:06:54 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/06 14:01:38 by rheck            ###   ########.fr       */
+/*   Updated: 2024/02/13 12:01:43 by mgigot           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../inc/mini.h"
 
@@ -65,20 +65,11 @@ char *replace_env_variables_quotes(const char *input)
 				cursor++;
 				i++;
 			}
-			printf("2\n");
 			var_name = malloc(sizeof(char) * (cursor + 1));
-			printf("3\n");
 			ft_strlcpy(var_name, begin, cursor + 1);
-			printf("4\n");
-			printf("var name : %s\n", var_name);
-			printf("input index : %d\n", i);
-			printf("length : %zu\n", ft_strlen(var_name));
-			printf("get_env : %s\n", getenv(var_name));
 			if (!getenv(var_name)){
-				printf("ENTERED\n");
 				return ("\n");
 				}
-			printf("5\n");
 			if (input[i] == '\0')
 				break;
 		}

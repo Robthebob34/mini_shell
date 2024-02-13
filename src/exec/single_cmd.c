@@ -23,7 +23,6 @@ int	check_fd_heredoc(t_main *tools, int end[2], t_cmd cmd) // attention derefere
 {
 	int	fd_in;
 
-	printf("heredoc = %i\n", tools->heredoc);
 	if (tools->heredoc)
 	{
 		close(end[0]);

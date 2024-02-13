@@ -17,7 +17,6 @@ int	pipe_wait(int *pid, int amount)
 	int	status;
 
 	i = 0;
-	printf("je suis ICI\n");
 	while (i < amount)
 	{
 		waitpid(pid[i], &status, 0);
@@ -30,11 +29,6 @@ int	pipe_wait(int *pid, int amount)
 }
 void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in)
 {
-	static int i = 0;
-	printf("my statique i = %d\n", i);
-	i++;
-	printf("tools fork index = %d\n", tools->fork_index);
-	printf("my fd_in = %d \n", fd_in);
 	if (tools->fork_index > 0 && (dup2(fd_in, 0) < 0))
 	{
 		ft_error(4, tools);
@@ -56,7 +50,6 @@ void	handle_cmd(t_cmd *cmd, t_main *tools)
 	exit_code = 0;
 	if (cmd->redirection != NULL)
 	{
-		printf("je suis la cmd = %s\n", cmd->cmd_name);
 		if (check_redirections(cmd))
 			exit(1);
 	}
@@ -77,9 +70,7 @@ int	find_cmd(t_cmd *cmd, t_main *tools)
 	char	*mycmd;
 
 	i = 0;
-	//write(1, cmd[0].cmd_name, ft_strlen(cmd[0].cmd_name));
-	//write(1, "\n", 1);
-	path_exec = ft_split(tools->env_path, ':'); // a changer avec notre variable d'environnement
+	path_exec = ft_split(tools->env_path, ':');
 	if (!access(cmd[0].cmd_name, F_OK))
 		execve(cmd[0].cmd_name, cmd[0].cmd_args, tools->env_tab);
 	while (path_exec[i])

@@ -2,7 +2,6 @@
 
 void	print_lines(int i, char **str, int out)
 {
-	printf("je passe ici wlh\n");
 	while (str[i])
 	{
 		ft_putstr_fd(str[i], out);
