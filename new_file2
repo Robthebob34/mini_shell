@@ -1,0 +1,6 @@
+history
+cat history_file | wc -l
+cat history_file | wc -l
+cat history_file | wc -l
+cat history_file | tr 'a-z' 'A-Z'
+cat history_file | grep "history" > new_file

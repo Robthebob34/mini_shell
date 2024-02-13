@@ -13,6 +13,7 @@ int	check_redirections(t_cmd *cmd)
 		}
 		else if (cmd[i].redirection && cmd[i].redirection[0] == '>')
 		{
+			printf("check outfile\n");
 			if (handle_outfile(cmd + i))
 				return (1);
 		}
@@ -29,12 +30,17 @@ int	check_append_outfile(t_cmd *redirections)
 {
 	int	fd;
 
-	if (ft_strncmp(redirections[0].redirection, ">>", 2))
+	if (redirections[0].redirection[0] == '>' && redirections[0].redirection[1] == '>')
+	{
 		fd = open(redirections[0].redirection_name,
 				O_CREAT | O_RDWR | O_APPEND, 0644);
+	}
 	else
+	{
+		printf("%s\n", redirections[0].redirection_name);
 		fd = open(redirections[0].redirection_name,
 				O_CREAT | O_RDWR | O_TRUNC, 0644);
+	}
 	return (fd);
 }
 
@@ -63,18 +69,19 @@ int	handle_outfile(t_cmd *redirection)
 {
 	int	fd;
 
+	printf("check outfile!!!!\n");
 	fd = check_append_outfile(redirection);
 	if (fd < 0)
 	{
 		ft_putstr_fd("minishell: outfile: Error\n", 2);
 		return (1);
 	}
-	if (fd > 0 && dup2(fd, STDOUT_FILENO) < 0)
+	if (fd > 0 && dup2(fd, 1) < 0)
 	{
 		ft_putstr_fd("minishell: pipe error\n", 2);
 		return (1);
 	}
 	if (fd > 0)
 		close(fd);
-	return (1);
+	return (0);
 }

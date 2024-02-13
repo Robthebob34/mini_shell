@@ -303,3 +303,97 @@ cat << fin
 cat << fin
 cat << fin
 >>>>>>> ccbebe2dc1930d6da0d904b52f375375cb70e063
+ls
+ls -la
+ls 
+pwd 
+cd src/
+ls
+cd src/
+ls
+exit
+./minishell 
+yes
+exit
+exit
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+cat -e
+cat -e
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+ls -l
+echo test
+echo test | cat -e
+echo test
+echo test | cat -e
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e
+printf("value after expand = %s\n", data_base->token_array[i].value);
+echo test | cat =e
+echo test | cat -e
+echo test | cat -e
+echo test | cat -e
+echo test | cat -e
+echo test | cat -e
+echo test
+cat 
+echo test | cat
+ls
+ls -la
+rm .DS_Store 
+ls -la
+echo test | cat -e
+pwd | cat -e
+echo test | cat -e
+echo test | cat -e
+pwd | cat -e
+pwd | cat -e
+echo test | cat -e
+echo test | cat -e
+ls -la | grep a | tr 'a-z' 'A-Z'
+echo test | cat -e
+echo test | cat -e
+echo test | cat -e
+echo test | cat -e
+echo test | cat -e
+echo test | cat -e
+echo test | cat -e
+ls
+cat history_file | wc -l
+cat history_file | wc -l
+cat history_file | wc -l
+cat history_file | tr 'a-z' 'A-Z'
+cat history_file | grep "history" > new_file
+cat history_file | grep "history" > new_file
+cat history_file | grep "history" > new_file
+cat history_file | grep "history" > new_file3
+cat history_file | grep "history" > new_file
+cat history_file | grep "history" > new_file3
+echo $?
+cat "history_file" | grep "history" > new_try
+cat "history_file" | grep "history" > new_try2
+grep "history_file" > new_file
+grep "history_file" > new_file
+grep "history_file" > new_file
+grep "history_file" > new_file
+grep "history_file" > new_file
+cat "history_file" | grep "history" > new_try3
+cat "history_file" | grep "history" > new_try3
+cat "history_file" > new_file
+
+cat history_file > new_file
+cat "history_file" | grep "history" > new_file
+cat "history_file" | grep "history" > new_file
+cat 
+cat "history_file" | grep "history" > new_file
+cat "history_file" | grep "history" > new_file
+ls
+cool
+clear
+yes
+ls
+ls -la

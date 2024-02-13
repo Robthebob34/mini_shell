@@ -6,7 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:07:05 by rheck             #+#    #+#             */
-/*   Updated: 2024/02/05 11:29:20 by mgigot           ###   ########.fr       */
+/*   Updated: 2024/02/09 12:07:52 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -52,6 +52,7 @@ int	ft_error(int error, t_main *tools)
 }
 int	cmd_not_found(char *str)
 {
+	printf("cmd not found\n");
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);

@@ -1,0 +1,26 @@
+history
+cat history_file | wc -l
+cat history_file | wc -l
+cat history_file | wc -l
+cat history_file | tr 'a-z' 'A-Z'
+cat history_file | grep "history" > new_file
+cat history_file | grep "history" > new_file
+cat history_file | grep "history" > new_file
+cat history_file | grep "history" > new_file3
+cat history_file | grep "history" > new_file
+cat history_file | grep "history" > new_file3
+cat "history_file" | grep "history" > new_try
+cat "history_file" | grep "history" > new_try2
+grep "history_file" > new_file
+grep "history_file" > new_file
+grep "history_file" > new_file
+grep "history_file" > new_file
+grep "history_file" > new_file
+cat "history_file" | grep "history" > new_try3
+cat "history_file" | grep "history" > new_try3
+cat "history_file" > new_file
+cat history_file > new_file
+cat "history_file" | grep "history" > new_file
+cat "history_file" | grep "history" > new_file
+cat "history_file" | grep "history" > new_file
+cat "history_file" | grep "history" > new_file

@@ -6,11 +6,7 @@
 /*   By: mgigot <mgigot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 17:02:19 by rheck             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/06 11:11:36 by rheck            ###   ########.fr       */
-=======
-/*   Updated: 2024/02/07 12:39:04 by mgigot           ###   ########.fr       */
->>>>>>> ccbebe2dc1930d6da0d904b52f375375cb70e063
+/*   Updated: 2024/02/12 11:25:06 by mgigot           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -90,12 +86,19 @@ t_cmd   parse_next_cmd(t_main *data_base)
 	}
     if(data_base->token_array[data_base->index].type == IDENTIFIER)
     {
+		ret.fd_in = 0;
+		ret.fd_out = 0;
         ret_tab[j] = ft_strdup(data_base->token_array[data_base->index].value);
 		data_base->index = place_redirection(&ret, data_base, data_base->index);
 		data_base->index++;
         while(is_valid_arg(data_base->token_array[data_base->index].type) == 0)
         {
 			data_base->index = place_redirection(&ret, data_base, data_base->index);
+			if(ret.fd_out == 1)
+			{
+				printf("alors peut etre\n");
+				break;
+			}
         	j++;
             ret_tab[j] = ft_strdup(data_base->token_array[data_base->index].value);
 			data_base->index++;
@@ -117,20 +120,19 @@ t_cmd   parse_next_cmd(t_main *data_base)
 }
 int	is_valid_arg(TokenType type)
 {
-<<<<<<< HEAD
-	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER || type == ARGUMENT)
-=======
 	if(type == OPTION || type == VARIABLE || type == STRING || type == NUMBER || type == OPERATOR || type == ARGUMENT)
->>>>>>> ccbebe2dc1930d6da0d904b52f375375cb70e063
 		return (0);
 	else
 		return (1);
 }
 int	place_redirection(t_cmd *new_dir, t_main *data_base, int pos)
 {
-	data_base->redirection += 1;
+	int	tmp;
+
+	tmp = pos;
 	if(data_base->token_array[data_base->index].type == OPERATOR)
 	{
+		data_base->redirection += 1;
 		if(data_base->token_array[pos].value[0] == '<')
 		{
 			new_dir->redirection_name = ft_strdup(data_base->token_array[pos + 1].value);
@@ -138,14 +140,16 @@ int	place_redirection(t_cmd *new_dir, t_main *data_base, int pos)
 			new_dir->redirection = ft_strdup(data_base->token_array[pos].value);
 			new_dir->fd_in = 1;
 		}
-		if(data_base->token_array[pos].value[0] == '>')
+		else if(data_base->token_array[pos].value[0] == '>')
 		{
 			new_dir->redirection_name = ft_strdup(data_base->token_array[pos + 1].value);
 			new_dir->redirection_name2 = ft_strdup(data_base->token_array[pos + 1].value);
+			data_base->token_array[pos + 1].type = EOF_TOKEN;
 			new_dir->redirection = ft_strdup(data_base->token_array[pos].value);
 			new_dir->fd_out = 1;
 		}
 		pos += 1;
+		return(pos);
 	}
 	else
 	{

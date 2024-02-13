@@ -32,6 +32,8 @@ void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in)
 {
 	static int i = 0;
 	printf("my statique i = %d\n", i);
+	i++;
+	printf("tools fork index = %d\n", tools->fork_index);
 	printf("my fd_in = %d \n", fd_in);
 	if (tools->fork_index > 0 && (dup2(fd_in, 0) < 0))
 	{
@@ -45,8 +47,6 @@ void	dup_cmd(t_cmd *cmd, t_main *tools, int end[2], int fd_in)
 	close(end[1]);
 	if (tools->fork_index > 0)
 		close(fd_in);
-	printf("end 0 = %i\n", end[0]);
-	printf("end 1 = %i\n", end[1]);
 	handle_cmd(cmd, tools);
 }
 void	handle_cmd(t_cmd *cmd, t_main *tools)
@@ -54,11 +54,11 @@ void	handle_cmd(t_cmd *cmd, t_main *tools)
 	int	exit_code;
 
 	exit_code = 0;
-	if (tools->redirection > 0)
+	if (cmd->redirection != NULL)
 	{
+		printf("je suis la cmd = %s\n", cmd->cmd_name);
 		if (check_redirections(cmd))
 			exit(1);
-		printf("yo\n");
 	}
 	if ((cmd->builtin = look_for_builtin(tools->cmds_list->cmd_name)))
 	{
@@ -77,8 +77,8 @@ int	find_cmd(t_cmd *cmd, t_main *tools)
 	char	*mycmd;
 
 	i = 0;
-	write(1, cmd[0].cmd_name, ft_strlen(cmd[0].cmd_name));
-	write(1, "\n", 1);
+	//write(1, cmd[0].cmd_name, ft_strlen(cmd[0].cmd_name));
+	//write(1, "\n", 1);
 	path_exec = ft_split(tools->env_path, ':'); // a changer avec notre variable d'environnement
 	if (!access(cmd[0].cmd_name, F_OK))
 		execve(cmd[0].cmd_name, cmd[0].cmd_args, tools->env_tab);
@@ -88,7 +88,9 @@ int	find_cmd(t_cmd *cmd, t_main *tools)
 		mycmd = ft_strjoin(tmp, cmd[0].cmd_name);
 		free(tmp);
 		if (!access(mycmd, F_OK))
+		{
 			execve(mycmd, cmd[0].cmd_args, tools->env_tab);
+		}
 		free(mycmd);
 		i++;
 	}
